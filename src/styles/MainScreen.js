@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
+import { ScaledSheet } from "react-native-size-matters";
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     background: {
         width: '100%',
         height: '100%',
@@ -10,12 +10,12 @@ const styles = StyleSheet.create({
     },
     container: {
         width: '100%',
-        paddingHorizontal: 24,
+        paddingHorizontal: '24@msr',
         alignItems: 'center'
     },
     buttonHelpContainer: {
-        width: 220,
-        height: 220,
+        width: '220@s',
+        height: '220@vs',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     needHelp: {
-        fontSize: 52,
+        fontSize: '42@s',
         color: 'rgba(255, 255, 255, 1)',
         textAlign: 'center',
         fontFamily: 'BebasRegular'
@@ -56,19 +56,19 @@ const styles = StyleSheet.create({
     },
     dot: {
         backgroundColor: 'rgba(68, 230, 94, 1)',
-        width: 10,
-        height: 10,
+        width: '10@s',
+        height: '10@vs',
         borderRadius: 1000
     },
     onlineText: {
-        marginLeft: 6,
+        marginLeft: '6@vsr',
         color: 'rgba(125, 143, 157, 1)',
-        fontSize: 18,
+        fontSize: '18@s',
         fontFamily: 'NotoSans'
     },
     footer: {
         width: '100%',
-        height: 145,
+        height: '145@vs',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
         bottom: 0
     },
     goBack: {
-        height: 35,
-        width: 35,
+        height: '35@vs',
+        width: '35@s',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         borderRadius: 1000,
         justifyContent: 'center',
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 10000,
         bottom: 30,
-        right: 30
+        right: '30@msr'
     },
 });
 

@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
+import { ScaledSheet } from "react-native-size-matters";
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     container: {
-        padding: 32,
+        paddingHorizontal: '24@msr',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -10,17 +10,21 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 1000,
         top: 0,
-        width: '100%'
+        width: '100%',
+        paddingTop: '24@msr',
+        paddingBottom: '6@msr',
+        backgroundColor: '#FFF'
     },
     title: {
-        fontSize: 24,
+        fontSize: '20@s',
         color: 'rgba(31, 31, 31, 1)',
         fontFamily: 'NotoSansMedium',
-        marginLeft: 12
+        marginLeft: '12@msr'
     },
     logo: {
-        height: 50,
-        width: 50
+        height: '40@vs',
+        width: '40@s',
+        resizeMode: 'center'
     }
 });
 

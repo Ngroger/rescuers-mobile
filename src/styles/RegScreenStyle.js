@@ -1,11 +1,11 @@
-import { StyleSheet } from "react-native";
+import { ScaledSheet } from "react-native-size-matters";
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     navbar: {
         width: '100%',
-        height: 145,
+        height: '120@vs',
         position: 'absolute',
-        zIndex: 1000,
+        zIndex: -100,
         top: 0
     },
     background: {
@@ -28,16 +28,16 @@ const styles = StyleSheet.create({
         left: 30
     },
     container: {
-        paddingHorizontal: 24,
+        paddingHorizontal: '24@msr',
         width: '100%'
     },
     title: {
-        fontSize: 28,
+        fontSize: '20@s',
         fontFamily: 'NotoSansBold',
         color: '1F1F1F'
     },
     description: {
-        fontSize: 18,
+        fontSize: '16@s',
         color: '#1F1F1F',
         fontFamily: 'NotoSansLight'
     },
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
         width: '100%',
         borderBottomColor: 'rgba(31, 31, 31, 0.3)',
         borderBottomWidth: 1,
-        paddingVertical: 12
+        paddingVertical: '12@msr'
     },
     fieldTitle: {
-        fontSize: 18,
+        fontSize: '14@s',
         color: 'rgba(31, 31, 31, 0.7)',
         fontFamily: 'NotoSans'
     },
@@ -59,32 +59,33 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     input: {
-        fontSize: 20,
+        fontSize: '16@s',
         color: 'rgba(31, 31, 31)',
         fontFamily: 'NotoSans',
-        width: '100%'
+        width: '100%',
     },
     button: {
         width: '100%',
-        padding: 16,
+        padding: '16@msr',
         borderRadius: 1000,
         backgroundColor: 'rgba(225, 55, 55, 1)',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 48
-        },
+        marginTop: '48@msr',
+        zIndex: 1000
+    },
     buttonText: {
-        fontSize: 24,
+        fontSize: '20@s',
         color: 'rgba(255, 255, 255, 1)',
         fontFamily: 'NotoSans',
     },
     footer: {
         width: '100%',
-        height: 145,
+        height: '120@vs',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        zIndex: 10,
+        zIndex: -1000,
         bottom: 0
     },
     checkBox: {
@@ -96,8 +97,8 @@ const styles = StyleSheet.create({
     },
     activeCheckbox: {
         backgroundColor: 'rgba(225, 55, 55, 1)',
-        height: 20,
-        width: 20,
+        height: '20@vs',
+        width: '20@s',
         borderRadius: 6,
         justifyContent: 'center',
         alignItems: 'center',
@@ -108,42 +109,61 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 24
+        marginBottom: '24@msr'
     },
     activeStep: {
         borderWidth: 1,
         borderColor: 'rgba(125, 143, 157, 1)',
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         borderRadius: 1000,
         justifyContent: 'center',
         alignItems: 'center'
     },
     activeDot: {
-        width: 8,
-        height: 8,
+        width: '8@s',
+        height: '8@vs',
         borderRadius: 10000,
         backgroundColor: 'rgba(225, 55, 55, 1)'
     },
     line: {
-        width: 100,
+        width: '15%',
         backgroundColor: 'rgba(31, 31, 31, 0.3)',
-        marginHorizontal: 12,
-        height: 1
+        marginHorizontal: '12@msr',
+        height: '1@vs'
     },
     step: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         borderRadius: 1000,
         justifyContent: 'center',
         alignItems: 'center'
     },
     dot: {
-        width: 8,
-        height: 8,
+        width: '8@s',
+        height: '8@vs',
         borderRadius: 10000,
         backgroundColor: 'rgba(31, 31, 31, 0.3)'
     },
+    errorMessage: {
+        fontSize: 16,
+        color: '#FF0000',
+        textAlign: 'center',
+        fontFamily: 'NotoSans'
+    },
+    fileContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    fileButton: {
+        width: 70,
+        height: 70,
+        borderRadius: 1000,
+        backgroundColor: '#E13737',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 export default styles;

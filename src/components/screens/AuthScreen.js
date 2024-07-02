@@ -5,11 +5,45 @@ import MaskInput from 'react-native-mask-input';
 import { useState } from 'react';
 import { Feather, Fontisto } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import UserStorage from '../../store/UserStorage';
 
 function AuthScreen() {
-    const [value, onChangeValue] = useState();
     const [isHidden, setIsHidden] = useState(true);
+    const [data, setData] = useState({
+        login: "",
+        password: ""
+    });
     const navigation = useNavigation();
+    const [message, setMessage] = useState();
+
+    const handleChangeInput = (name, value) => {
+        setData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    }
+
+    const auth = async () => {
+        try {
+            const response = await fetch('https://spasateli.kz/api/user/login', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ phone: data.login, password: data.password })
+            });
+
+            const responseJson = await response.json();
+            if (responseJson.success) {
+                await UserStorage.saveUserId(responseJson.userId);
+                navigation.navigate("MainScreen", { slug: 'urgent-call', type: 'Актуальный' });
+            } else {
+                setMessage(responseJson.message);
+            }
+        } catch (error) {
+            console.log("auth error: ", error);
+        }
+    }
 
     return(
         <View style={styles.background}>
@@ -22,10 +56,10 @@ function AuthScreen() {
                     <View style={styles.fieldContainer}>
                         <MaskInput
                             keyboardType='numeric'
-                            value={value}
+                            value={data.login}
                             style={styles.input}
                             onChangeText={(masked, unmasked) => {
-                                onChangeValue(masked)
+                                handleChangeInput("login", unmasked)
                             }}
                             mask={['+', /\d/, '(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
                             />
@@ -35,18 +69,25 @@ function AuthScreen() {
                 <View style={styles.field}>
                     <Text style={styles.fieldTitle}>Пароль</Text>
                     <View style={styles.fieldContainer}>
-                        <TextInput secureTextEntry={isHidden} placeholder='Введите пароль' style={styles.input}/>
+                        <TextInput 
+                            secureTextEntry={isHidden} 
+                            placeholder='Введите пароль' 
+                            style={[styles.input, { width: '80%' }]}
+                            value={data.password}
+                            onChangeText={(text) => handleChangeInput("password", text)}
+                        />
                         <TouchableOpacity onPress={() => setIsHidden(!isHidden)}>
                             <Fontisto name={ isHidden ? "locked" : "unlocked" } size={24} color="#7D8F9D" />
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{ width: '100%', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                {/* <View style={{ width: '100%', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
                     <TouchableOpacity>
-                        <Text style={{ fontSize: 18, color: 'rgba(31, 31, 31, 1)', paddingVertical: 6 }}>Забыли пароль?</Text>
+                        <Text style={{ fontSize: 18, color: 'rgba(31, 31, 31, 1)', paddingVertical: 16 }}>Забыли пароль?</Text>
                     </TouchableOpacity>
-                </View>
-                <TouchableOpacity onPress={() => navigation.navigate("MainScreen")} style={styles.button}>
+                </View> */}
+                <Text style={styles.error}>{message}</Text>
+                <TouchableOpacity disabled={!data.login || !data.password} onPress={() => auth()} style={ !data.login || !data.password ? [styles.button, { opacity: 0.5 }] : styles.button }>
                     <Text style={styles.buttonText}>Войти</Text>
                 </TouchableOpacity>
             </View>
