@@ -3,13 +3,15 @@ import { initReactI18next } from 'react-i18next';
 
 import ruTranslations from '../locales/ru.json';
 import kzTranslations from '../locales/kz.json';
+import engTranslations from '../locales/eng.json';
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
     .init({
         resources: {
             ru: { translation: ruTranslations },
-            kz: { translation: kzTranslations }
+            kz: { translation: kzTranslations },
+            eng: { translation: engTranslations }
         },
         lng: 'ru', // default language
         fallbackLng: 'ru', // fallback language

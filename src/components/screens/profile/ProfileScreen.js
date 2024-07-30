@@ -37,12 +37,12 @@ function ProfileScreen() {
                 <View style={styles.container}>
                     <View style={styles.profileInfo}>
                         <Image source={{ uri: `https://spasateli.kz/api/user/avatar/${userData.photo}` }} style={styles.photoProfile}/>
-                        {/* <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', marginVertical: 6 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', marginVertical: 2 }}>
                             <Text style={styles.id}>#{userData.user_id}</Text>
-                            <TouchableOpacity style={{ marginLeft: 6 }}>
+                            {/* <TouchableOpacity style={{ marginLeft: 6 }}>
                                 <AntDesign name="copy1" size={16} color="rgba(125, 143, 157, 1)" />
-                            </TouchableOpacity>
-                        </View> */}
+                            </TouchableOpacity> */}
+                        </View>
                         <Text style={[styles.fullname, { color: colors.text }]}>{userData.name} {userData.surname}</Text>
                         <Text style={[styles.typeOfAccount, { color: colors.thinText }]}>{userData.type}</Text>
                     </View>
@@ -58,48 +58,55 @@ function ProfileScreen() {
                             <View style={[styles.lineContent, { width: userData.level_experience }]}/>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={() => navigation.navigate("PersonalDataScreen", { userData: userData })} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.profile-settings")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
-                    { userData?.type === 'Очевидец' && (
+                    <View style={[styles.info, { borderBottomColor: colors.thinText } ]}>
+                        <Text style={[styles.infoTitle, { color: colors.text }]}>Профиль</Text>
                         <TouchableOpacity onPress={() => navigation.navigate("JournalScreen")} style={styles.button}>
                             <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.journal")}</Text>
                             <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
                         </TouchableOpacity>
-                    ) }
-                    <TouchableOpacity onPress={() => navigation.navigate("AchievementsScreen")} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.achievments")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate("PartnersScreen")} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.parnters")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate("ContactScreen")} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.contacts")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setIsOpenLanguages(true)} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.change-language")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setIsOpenNotification(true)} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.notifications")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate("ReferenceScreen")} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.reference")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate("AboutProgramScreen")} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.about-programm")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate("FaqScreen")} style={styles.button}>
-                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.faq")}</Text>
-                        <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
-                    </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("AchievementsScreen")} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.achievments")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.info, { borderBottomColor: colors.thinText } ]}>
+                        <Text style={[styles.infoTitle, { color: colors.text }]}>Настройки</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate("PersonalDataScreen", { userData: userData })} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.profile-settings")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setIsOpenLanguages(true)} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.change-language")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setIsOpenNotification(true)} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.notifications")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={[styles.info, { borderBottomColor: colors.thinText } ]}>
+                        <Text style={[styles.infoTitle, { color: colors.text }]}>Информация</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate("ContactScreen")} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.contacts")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("ReferenceScreen")} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.reference")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("AboutProgramScreen")} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.about-programm")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("FaqScreen")} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.faq")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("PartnersScreen")} style={styles.button}>
+                            <Text style={[styles.buttonText, { color: colors.text }]}>{t("profile-screen.parnters")}</Text>
+                            <MaterialIcons name="keyboard-arrow-right" size={24} color={ colors.text } />
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
             <StatusBar translucent={true} backgroundColor='transparent'/>

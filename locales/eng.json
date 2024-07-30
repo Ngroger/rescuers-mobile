@@ -1,0 +1,327 @@
+{
+    "menu-list": {
+        "urgent-call": "An urgent call",
+        "test-call": "Test call",
+        "education": "Get trained",
+        "forum": "Forum",
+        "blog": "The blog",
+        "disasters": "Natural disasters",
+        "missed": "Missing in action",
+        "contacts": "Contacts",
+        "partners": "Partners",
+        "profile": "Profile",
+        "my-status": "My status",
+        "actual-incident": "The current incident",
+        "teams": "Teams"
+    },
+    "urgent-call-screen": {
+        "online": "rescuers online",
+        "need-help": "Help is needed"
+    },
+    "add-urgent-screen": {
+        "title": "Choose the type of accident",
+        "categories": {
+            "cat1": "The man is unconscious",
+            "cat2": "БOl in the heart",
+            "cat3": "Accidents with victims",
+            "cat4": "Arm/leg injury",
+            "cat5": "Other" 
+        },
+        "address-title": "Address",
+        "address-placeholder": "Enter the address",
+        "next-button": "Next",
+        "title2": "Choose who needs help",
+        "enviroment": "Surrounding",
+        "me": "To me",
+        "check-address-title": "Check the address",
+        "description-title": "Description",
+        "description-placeholder": "Enter a description",
+        "send-button": "Send"
+    },
+    "need-help-modal": {
+        "title": "Do you need emergency services (103)?",
+        "description": "If you find yourself in an emergency situation and need prompt assistance from rescuers, call 103.",
+        "call-button": "Call",
+        "already-called": "Already summoned",
+        "not-need": "You don't have to"
+    },
+    "education-screen": {
+        "title": "Training centers",
+        "individual": "Physical person",
+        "entity": "Legal entity",
+        "empty-list": "There are no training centers for this request",
+        "select-city": "Select a city",
+        "cities": {
+            "almaty": "Almaty",
+            "astana": "Astana",
+            "shimkent": "Shymkent",
+            "aktobe": "Aktobe",
+            "karaganda": "Karaganda",
+            "taraz": "Taraz",
+            "pavlodar": "Pavlodar",
+            "usty-kamenogorsk": "Ust-Kamenogorsk",
+            "semey": "Semey",
+            "atyrau": "Atyrau",
+            "kostanay": "Atyrau"
+        }
+    },
+    "forum-screen": {
+        "title": "Discussions",
+        "new-forum": "New discussion"
+    },
+    "add-forum-screen": {
+        "title": "Report a disaster",
+        "title-title": "Caption",
+        "title-placeholder": "Enter a title",
+        "description-title": "Description",
+        "description-placeholder": "Enter a description"
+    },
+    "public-button": "Publish",
+    "blog-screen": {
+        "search": "Search",
+        "fire": "Fires",
+        "earthshaker": "Earthquakes",
+        "waterfall": "Flooding",
+        "views": "views",
+        "back-button": "Back",
+        "filters": {
+            "title": "Filtration",
+            "default": "Default",
+            "date": "By date of publication",
+            "popular": "By popularity"
+        }
+    },
+    "disasters-screen": {
+        "system": "System",
+        "users": "Custom",
+        "report-a-disasters": "Report a disaster",
+        "created-at": "Date of Creation"
+    },
+    "read-more-button": "Read more",
+    "hide-button": "Hide",
+    "message-title": "Message",
+    "message-placeholder": "Enter a message",
+    "add-disasters": {
+        "title": "Report a disaster",
+        "title-title": "Caption",
+        "title-placeholder": "Enter a title",
+        "photo-title": "Photo",
+        "description-title": "Description",
+        "description-placeholder": "Enter a description"
+    },
+    "chooise-modal": {
+        "take-photo": "Take a picture",
+        "pick-photo": "Select a photo"
+    },
+    "missed-screen": {
+        "report-a-missed": "Report a missing person",
+        "search-human": "Searching for a person",
+        "search-animal": "Finding a pet",
+        "information": "Information",
+        "finding": "Finding",
+        "info": "Info.",
+        "write-message-button": "Write"
+    },
+    "add-missed-screen": {
+        "title": "Report a missing person",
+        "human-button": "Man",
+        "animal": "Pet",
+        "fullname": "NAME",
+        "fullname-placeholder": "Enter Name",
+        "nickname": "Nickname",
+        "nickname-placeholder": "Enter a nickname",
+        "photo": "Photo",
+        "description-title": "Description",
+        "description-placeholder": "Enter a description"
+    },
+    "parnters-screen": {
+        "description": "We thank our partners for their trust and cooperation. Together we create a strong community where everyone can count on help and support. Thank you for your contribution to our common cause."
+    },
+    "profile-screen": {
+        "userData.level": "Elementary",
+        "profile-settings": "Profile settings",
+        "Очевидец": "Profile settings",
+        "Спасатель": "Lifeguard",
+        "journal": "Lifeguard",
+        "achievments": "Accomplishments",
+        "parnters": "Partners",
+        "contacts": "Contacts",
+        "change-language": "Contacts",
+        "notifications": "Notification settings",
+        "reference": "Synopsis",
+        "about-programm": "About the program",
+        "faq": "Frequently Asked Questions"
+    },
+    "profile-settings": {
+        "title": "Profile settings",
+        "eyewitness": "Eyewitness",
+        "savers": "Rescuer",
+        "exit": "Exit",
+        "name": "Name",
+        "surname": "Surname",
+        "phone": "Phone number",
+        "password": "Password"
+    },
+    "journal-screen": {
+        "categories": {
+            "all": "All",
+            "actual": "Relevant",
+            "testing": "Testing",
+            "finished": "Finished"
+        }
+    },
+    "journal-info-screen": {
+        "search-savers": "Search for rescuers",
+        "type-of-incident": "Type of accident",
+        "geolocation": "Location",
+        "description": "Description",
+        "call-button": "To call",
+        "send-feedback": "Respond",
+        "feedback-exist": "You have already responded",
+        "cancel": "Refuse",
+        "map": "View on the map",
+        "no-incident-title": "You don't have a selected incident yet",
+        "no-incident-subtitle": "The incident that you responded to will be displayed here."
+    },
+    "achievments": {
+        "golded-star": "Gold Star Lifeguard",
+        "golded-star-description": "To help 100 people",
+        "active-user": "Active user",
+        "active-user-description": "Write 1000 messages"
+    },
+    "change-language-modal": {
+        "title": "Language change",
+        "ru": "Russian language",
+        "kz": "Kazakh language",
+        "eng": "English"
+    },
+    "notification-modal": {
+        "title": "Notification settings",
+        "default": "Default",
+        "on": "Enable",
+        "off": "Enable"
+    },
+    "reference-screen": {
+        "title": "Help and guidance"
+    },
+    "faq": {
+        "fist-question": "How can I report an incident?",
+        "first-answer": "There is a 'Report an Incident' button in the app. Click on it, select the type of incident and follow the instructions to send the information.",
+        "second-question": "How can I offer my help?",
+        "second-answer": "You can offer help by clicking on the 'Offer Help' button on the main menu. Select the type of help you can provide and enter your contact information.",
+        "three-question": "How do I find people who need help near me?",
+        "three-answer": "The app has a map that shows people who need help. You can zoom in to find incidents near you.",
+        "four-question": "The app has a map that shows people who need help. You can zoom in to find incidents near you.",
+        "four-answer": "You will receive an in-app notification as soon as your help is accepted. You will also be able to keep track of the status of your proposals in the 'Journal' section.",
+        "fifth-question": "What types of incidents can I report through the app?",
+        "fifth-answer": "You can report transportation accidents, fires, drownings, medical emergencies and other incidents that require immediate assistance.",
+        "tech-support": "Write to tech support"
+    },
+    "contacts-screen": {
+        "urgent-help": "Urgent assistance",
+        "tech-support": "Technical support",
+        "coord-center": "Coordination Center"
+    },
+    "about-programm-screen": {
+        "description": "The emergency app provides help quickly and efficiently. Users can send an SOS signal with exact location to attract rescuers. The app also offers survival tips and integrates with local services for rapid response.",
+        "version": "version",
+        "contact-information": "Contact"
+    },
+    "success-modal": {
+        "title": "Done!",
+        "subtitle": "A new case has been successfully created"
+    },
+    "my-status-screen": {
+        "title": "My status",
+        "chooise-status": "My status",
+        "off-shift": "Off-shift",
+        "on-shift": "On the shift.",
+        "rescuers-on-duty": "On the shift.",
+        "on-duty": "on duty",
+        "count-incidents": "Number of incidents reported over the past 24 hours",
+        "incident": "incident",
+        "rescuers-in-incident": "The rescuers involved in the incidents",
+        "participating": "participating",
+        "map": "Incident map",
+        "journal": "Open the journal"
+    },
+    "map-incidents-screen": {
+        "title": "Incident map",
+        "route-button": "Plot a route"
+    },
+    "messages": {
+        "data-changed": "The data has been successfully changed. Re-enter to see the changes",
+        "feedback-send-title": "Message",
+        "feedback-send-subtitle": "You have successfully responded"
+    },
+    "change-password": {
+        "title": "Password change",
+        "old-pass-title": "Old password",
+        "old-pass-placeholder": "Enter your old password",
+        "new-pass-title": "New password",
+        "new-pass-placeholder": "Enter a new password",
+        "confirm-pass-title": "Confirm password",
+        "confirm-pass-placeholder": "Repeat the new password",
+        "save-button": "Repeat the new password",
+        "confirm-failed": "The passwords don't match",
+        "sick-pass": "The new password must be over 8 characters",
+        "invalid-old-password": "Incorrect old password",
+        "pass-changed": "Password changed"
+    },
+    "warning-modal": {
+        "title": "Warning",
+        "subtitle": "Your certificate has been sent for moderation. After successful moderation you will be able to rescue people",
+        "go-back-button": "Back to Home"
+    },
+    "reason-screen": {
+        "placeholder": "Pick a reason",
+        "reason-1": "Lack of equipment",
+        "reason-2": "False alarm",
+        "reason-3": "Other priority calls",
+        "reason-4": "Technical malfunctions of transport",
+        "reason-5": "Danger to lifeguards",
+        "reason-6": "Management decision",
+        "reason-7": "Ending the incident prior to arrival",
+        "reason-8": "Communication problems",
+        "reason-9": "Third-party intervention",
+        "reason-10": "Blocked access to the incident site",
+        "finish": "End the incident"
+    },
+    "language-screen": {
+        "title": "Choose a language!",
+        "subtitle": "Choose a language!",
+        "russian": "Russian language",
+        "kazakh": "Kazakh language",
+        "english": "English"
+    },
+    "auth-screen": {
+        "title": "Hello!!",
+        "subtitle": "Open up a world of new possibilities and convenience.",
+        "phone-title": "Phone number",
+        "password-title": "Password",
+        "password-placeholder": "Enter your password",
+        "login-button": "Sign in",
+        "account": "Are you missing an account?",
+        "create-button": "Create"
+    },
+    "reg-screen": {
+        "eyewitness": "Eyewitness",
+        "rescuer": "Lifeguard",
+        "name": "Name",
+        "name-placeholder": "Enter a name",
+        "surname": "Surname",
+        "surname-placeholder": "Enter last name",
+        "phone-title": "Phone number",
+        "email-title": "Email (Optional)",
+        "email-placeholder": "Enter email",
+        "agree": "I consent to the transfer and processing of my data",
+        "next-button": "Next",
+        "password": "Password",
+        "password-placeholder": "Enter your password",
+        "confirm-pass": "Confirm password",
+        "confirm-pass-placeholder": "Repeat the password",
+        "reg-button": "Sign up",
+        "certificate": "Certificate",
+        "certificate-placeholder": "Upload the certificate"
+    }
+}

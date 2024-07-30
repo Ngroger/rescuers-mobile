@@ -1,7 +1,7 @@
-import { Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, Image, TextInput, Alert } from 'react-native';
 import styles from '../../../styles/SituationAddressScreenStyle';
 import Navbar from '../../ux/Navbar';
-import { FontAwesome, MaterialIcons  } from '@expo/vector-icons';
+import { FontAwesome, MaterialIcons, Fontisto } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useRef, useState } from 'react';
@@ -29,7 +29,8 @@ function SituationAddressScreen() {
     const [placeholders, setPlaceholder] = useState([]);
     const [isPlaceholder, setIsPlaceholder] = useState(false);
     const [language, setLanguage] = useState();
-    const mapRef = useRef(null);
+    const [markerIconSize, setMarkerIconSize] = useState(48);
+        const mapRef = useRef(null);
 
     useEffect(() => {
         fetchLanguage();
@@ -125,8 +126,11 @@ function SituationAddressScreen() {
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
             });
+
+            console.log("addressResponse: ", addressResponse);
+            const formattedAddress = `${addressResponse[0].street} ${addressResponse[0].name}, ${addressResponse[0].city}`
     
-            handleChangeInput("address", addressResponse[0].formattedAddress);
+            handleChangeInput("address", formattedAddress);
             handleChangeInput("latitude", location.coords.latitude);
             handleChangeInput("longitude", location.coords.longitude);
             mapRef.current.animateToRegion({
@@ -144,6 +148,45 @@ function SituationAddressScreen() {
                 console.log('Error fetching address:', error);
             }
         }
+    };
+
+    const handleDragEnd = async (e) => {
+        const newLocation = e.nativeEvent.coordinate;
+        handleChangeInput("latitude", newLocation.latitude);
+        handleChangeInput("longitude", newLocation.longitude);
+    
+        try {
+          // Выполняем запрос к Google Geocoding API
+            const lang = language === 'kz' ? 'kk' : 'ru'
+            const apiKey = 'AIzaSyAoeJsYR20gUXEXBtXDM49xoNYByvFAbZg';
+            const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${newLocation.latitude},${newLocation.longitude}&key=${apiKey}&language=${lang}`;
+        
+            const response = await axios.get(geocodeUrl);
+        
+            if (response.data.results.length > 0) {
+                const addressComponents = response.data.results[0].address_components;
+                let formattedAddress = '';
+        
+                // Ищем нужные компоненты адреса
+                const street = addressComponents.find(component => component.types.includes('route'));
+                const name = addressComponents.find(component => component.types.includes('street_number'));
+                const city = addressComponents.find(component => component.types.includes('locality'));
+    
+            if (street && name && city) {
+                formattedAddress = `${street.long_name} ${name.long_name}, ${city.long_name}`;
+            } else {
+                formattedAddress = response.data.results[0].formatted_address;
+            }
+    
+            handleChangeInput("address", formattedAddress);
+            } else {
+                console.log('No address found for these coordinates.');
+            }
+        } catch (error) {
+            console.error('Error fetching address:', error);
+        }
+    
+        setMarkerIconSize(48); // Возвращаем иконке исходный размер после обработки координат
     };
 
     return (
@@ -188,11 +231,17 @@ function SituationAddressScreen() {
                 >
                     { data.latitude && data.longitude && (
                         <Marker
+                            draggable={true}
+                            onDragStart={() => setMarkerIconSize(64)}
+                            onDragEnd={handleDragEnd}
+                            style={{ position: 'absolute', zIndex: 10000 }}
                             coordinate={{
                                 latitude: parseFloat(data.latitude),
                                 longitude: parseFloat(data.longitude),
                             }}
-                        />
+                        >
+                            <Fontisto name="map-marker-alt" size={markerIconSize} color="#E13737" />
+                        </Marker>
                     ) }
                 </MapView>
                 <View style={styles.buttonContainer}>

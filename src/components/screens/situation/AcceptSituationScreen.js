@@ -3,7 +3,7 @@ import styles from '../../../styles/AcceptSituationStyle';
 import Navbar from '../../ux/Navbar';
 import { StatusBar } from 'expo-status-bar';
 import { FontAwesome } from '@expo/vector-icons';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import NeedHelpModal from '../../ux/modals/NeedHelpModal';
 import SuccessModal from '../../ux/modals/SuccessMessageModal';
@@ -24,6 +24,7 @@ function AcceptSituation() {
     const [toWhom, setToWhome] = useState();
     const [incidentId, setIncidentId] = useState();
     const [userId, setUserId] = useState();
+    const navigation = useNavigation();
 
     useEffect(() => {
         fetchUserId();
@@ -38,12 +39,12 @@ function AcceptSituation() {
 
     const makeCall = () => {
         const args = {
-            number: '102', // String value with the number to call
+            number: '103', // String value with the number to call
             prompt: false, // Optional boolean property. Determines if the user should be prompted prior to the call 
             skipCanOpen: true // Skip the canOpenURL check
         }
         
-        call(args).catch(console.error)
+        call(args).catch(console.error);
     };
 
     const createIncident = async () => {
@@ -79,8 +80,13 @@ function AcceptSituation() {
 
     const accept = async () => {
         createIncident();
-        setIsNeedHelpOpen(false)
+        setIsNeedHelpOpen(false);
     };
+
+    const goToRouteMap = () => {
+        setIsNeedHelpOpen(false);
+        navigation.navigate("RouteMap", { longitude: data.longitude, latitude: data.latitude, incidentId: incidentId, userId: userId })
+    }
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
@@ -130,7 +136,7 @@ function AcceptSituation() {
                 onSuccess={() => setIsSuccessOpen(true)} 
                 modalVisible={isNeedHelpOpen}
             />
-            <SuccessModal incidentId={incidentId} closeModal={() => setIsSuccessOpen(false)} modalVisible={isSuccessOpen}/>
+            <SuccessModal incidentId={incidentId} closeModal={() => goToRouteMap()} modalVisible={isSuccessOpen}/>
         </View>
     )
 };

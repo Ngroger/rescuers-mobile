@@ -11,18 +11,20 @@ function Navbar({ isLogo, title, backgroundColor }) {
     const { dark, colors, setScheme } = useTheme();
 
     return (
-        <View style={[styles.container, { backgroundColor: backgroundColor } ]}>
-            <TouchableOpacity onPress={() => setIsOpenLeftMenu(true)} style={{ flexDirection: 'row', alignItems: 'center', display: 'flex' }}>
-                <TouchableOpacity onPress={() => setIsOpenLeftMenu(true)}>
-                    <Feather name="menu" size={32} color={colors.text} />
+        <>
+            <View style={[styles.container, { backgroundColor: backgroundColor } ]}>
+                <TouchableOpacity onPress={() => setIsOpenLeftMenu(true)} style={{ flexDirection: 'row', alignItems: 'center', display: 'flex' }}>
+                    <TouchableOpacity onPress={() => setIsOpenLeftMenu(true)}>
+                        <Feather name="menu" size={32} color={colors.text} />
+                    </TouchableOpacity>
+                    <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
                 </TouchableOpacity>
-                <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
-            </TouchableOpacity>
-            { isLogo && (
-                <Image style={styles.logo} source={require("../../images/logo.png")}/>
-            ) }
-            <LeftMenu closeModal={() => setIsOpenLeftMenu(false)} modalVisible={isOpenLeftMenu}/>
-        </View>
+                { isLogo && (
+                    <Image style={styles.logo} source={require("../../images/logo.png")}/>
+                ) }
+            </View>
+            { isOpenLeftMenu && <LeftMenu closeModal={() => setIsOpenLeftMenu(false)}/> }
+        </>
     )
 };
 

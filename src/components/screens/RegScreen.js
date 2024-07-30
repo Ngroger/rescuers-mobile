@@ -1,12 +1,24 @@
-import { Text, View, TouchableOpacity, Image, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, Image, TextInput, Platform } from 'react-native';
 import styles from '../../styles/RegScreenStyle';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Feather, Ionicons, Fontisto, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import MaskInput from 'react-native-mask-input';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import UserStorage from '../../store/UserStorage';
 import * as DocumentPicker from 'expo-document-picker';
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+import mime from 'mime';
+import { useTranslation } from 'react-i18next';
+
+Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+    }),
+});
 
 function RegScreen() {
     const [step, setStep] = useState(1);
@@ -24,9 +36,77 @@ function RegScreen() {
         password: "",
         confirmPassword: "",
         certificate: null,
-        certificateName: ""
+        certificateName: "",
+        expoPushToken: "",
     });
     const [message, setMessage] = useState();
+    const [notification, setNotification] = useState(null);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+    const { t } = useTranslation();
+
+    useEffect(() => {
+        registerForPushNotificationsAsync()
+        .then(token => (setData({ ...data, expoPushToken: token }), console.log(data)))
+        .catch((error) => console.log(`${error}`));
+
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+            setNotification(notification);
+        });
+
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+            console.log(response);
+        });
+
+        return () => {
+            notificationListener.current &&
+                Notifications.removeNotificationSubscription(notificationListener.current);
+            responseListener.current &&
+                Notifications.removeNotificationSubscription(responseListener.current);
+        };
+    }, [data.expoPushToken])
+    
+    async function registerForPushNotificationsAsync() {
+        let token;
+        
+        if (Platform.OS === 'android') {
+            await Notifications.setNotificationChannelAsync('default', {
+                name: 'default',
+                importance: Notifications.AndroidImportance.MAX,
+                vibrationPattern: [0, 250, 250, 250],
+                lightColor: '#FF231F7C',
+            });
+        }
+        
+        if (Device.isDevice) {
+            const { status: existingStatus } = await Notifications.getPermissionsAsync();
+            let finalStatus = existingStatus;
+            if (existingStatus !== 'granted') {
+                const { status } = await Notifications.requestPermissionsAsync();
+                finalStatus = status;
+            }
+            if (finalStatus !== 'granted') {
+                alert('Failed to get push token for push notification!');
+                return;
+            }
+            token = (await Notifications.getExpoPushTokenAsync()).data;
+        } else {
+            alert('Must use physical device for Push Notifications');
+        }
+        
+        return token;
+    }
+
+    async function schedulePushNotification() {
+        await Notifications.scheduleNotificationAsync({
+        content: {
+            title: "Добро пожаловать",
+            body: `Вы успешно зарегистрировались`,
+            data: { data: 'goes here' },
+        },
+        trigger: { seconds: 2 },
+        });
+    }
 
     const handleChangeInput = (name, value) => {
         setData(prevData => ({
@@ -55,6 +135,7 @@ function RegScreen() {
 
             if (responseJson.success) {
                 console.log(responseJson.success);
+                setMessage();
                 setStep(3);
             } else {
                 setMessage(responseJson.message)
@@ -69,17 +150,23 @@ function RegScreen() {
             if (data.confirmPassword.length > 8) {
 
                 const formData = new FormData();
-                formData.append('certificate', {
-                    uri: data.certificate,
-                    name: 'certificate.pdf', // Имя файла
-                    type: 'application/pdf'  // MIME тип
-                });
                 formData.append("type", data.type);
                 formData.append("name", data.name);
                 formData.append("surname", data.surname);
                 formData.append("phone", data.phone);
                 formData.append("email", data.email);
                 formData.append("password", data.password);
+                formData.append("pushToken", data.expoPushToken);
+                if (data.type === 'Спасатель') {
+                    const mimeType = mime.getType(data.certificate) || 'application/octet-stream';
+                    formData.append('certificate', {
+                        uri: data.certificate,
+                        name: data.certificateName,
+                        type: mimeType
+                    });
+                }
+
+                console.log("formData: ", formData);
 
                 try {
                     const response = await fetch("https://spasateli.kz/api/user/signup", {
@@ -94,9 +181,9 @@ function RegScreen() {
                     if (responseJson.success) {
                         console.log(responseJson);
                         await UserStorage.saveUserId(responseJson.userId);
+                        schedulePushNotification();
                         navigation.navigate("MainScreen", { slug: 'urgent-call', type: 'Актуальный' });
                     }
-
                 } catch (error) {
                     console.log(error);
                 }
@@ -111,7 +198,13 @@ function RegScreen() {
     const selectFile = async () => {
         try {
             const res = await DocumentPicker.getDocumentAsync({
-                type: 'application/pdf',
+                type: [
+                    'application/pdf',
+                    'image/png',
+                    'image/jpeg',
+                    'application/msword',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                ],
             });
             console.log("file: ", res.assets[0].uri);
             console.log("res.type: ", res);
@@ -139,13 +232,13 @@ function RegScreen() {
             <View style={styles.container}>
                 { step === 1 && (
                     <>
-                        <Text style={styles.title}>Здравствуйте!</Text>
-                        <Text style={styles.description}>Откройте мир новых возможностей и удобства.</Text>
+                        <Text style={styles.title}>{t("auth-screen.title")}</Text>
+                        <Text style={styles.description}>{t("auth-screen.subtitle")}</Text>
                         <TouchableOpacity onPress={() => selectTypeOfAccount("Очевидец")} style={styles.button}>
-                            <Text style={styles.buttonText}>Очевидец</Text>
+                            <Text style={styles.buttonText}>{t("reg-screen.eyewitness")}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => selectTypeOfAccount("Спасатель")} style={[styles.button, { marginTop: 12 }]}>
-                            <Text style={styles.buttonText}>Спасатель</Text>
+                            <Text style={styles.buttonText}>{t("reg-screen.rescuer")}</Text>
                         </TouchableOpacity>
                     </>
                 ) }
@@ -170,32 +263,32 @@ function RegScreen() {
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}>
                             <View style={[styles.field, {  width: '48%'}]}>
-                                <Text style={styles.fieldTitle}>Имя</Text>
+                                <Text style={styles.fieldTitle}>{t("reg-screen.name")}</Text>
                                 <View style={styles.fieldContainer}>
                                     <TextInput
                                         name="name"
                                         value={data.name}
                                         onChangeText={(text) => handleChangeInput("name", text)}
                                         style={styles.input}
-                                        placeholder='Введите имя'
+                                        placeholder={t("reg-screen.name-placeholder")}
                                     />
                                 </View>
                             </View>
                             <View style={[styles.field, {  width: '48%'}]}>
-                                <Text style={styles.fieldTitle}>Фамилия</Text>
+                                <Text style={styles.fieldTitle}>{t("reg-screen.surname")}</Text>
                                 <View style={styles.fieldContainer}>
                                     <TextInput
                                         name="surname"
                                         value={data.surname}
                                         onChangeText={(text) => handleChangeInput("surname", text)}
                                         style={styles.input}
-                                        placeholder='Введите фамилию'
+                                        placeholder={t("reg-screen.surname-placeholder")}
                                     />
                                 </View>
                             </View>
                         </View>
                         <View style={styles.field}>
-                            <Text style={styles.fieldTitle}>Номер телефона</Text>
+                            <Text style={styles.fieldTitle}>{t("reg-screen.phone-title")}</Text>
                             <View style={styles.fieldContainer}>
                                 <MaskInput
                                     keyboardType='numeric'
@@ -211,11 +304,11 @@ function RegScreen() {
                             </View>
                         </View>
                         <View style={styles.field}>
-                            <Text style={styles.fieldTitle}>Email</Text>
+                            <Text style={styles.fieldTitle}>{t("reg-screen.email-title")}</Text>
                             <View style={styles.fieldContainer}>
                                 <TextInput
                                     style={[styles.input, { width: '80%' }]}
-                                    placeholder='Введите email'
+                                    placeholder={t("reg-screen.email-placeholder")}
                                     name="email"
                                     value={data.email}
                                     onChangeText={(text) => handleChangeInput("email", text)}
@@ -227,11 +320,11 @@ function RegScreen() {
                             <TouchableOpacity onPress={() => setIsCheckbox(!isCheckbox)} style={ isCheckbox ? styles.activeCheckbox : styles.checkBox }>
                                 <Ionicons name="checkmark" size={16} color="rgba(255, 255, 255, 1)" />
                             </TouchableOpacity>
-                            <Text style={{ fontFamily: 'NotoSans', color: 'rgba(31, 31, 31, 0.3)', fontSize: 14, marginLeft: 6 }}>Я соглашаюсь с передачей и обработкой моих данных</Text>
+                            <Text style={{ fontFamily: 'NotoSans', color: 'rgba(31, 31, 31, 0.3)', fontSize: 14, marginLeft: 6 }}>{t("reg-screen.agree")}</Text>
                         </View>
                         <Text style={styles.errorMessage}>{message}</Text>
-                        <TouchableOpacity disabled={!data.name || !data.surname || !data.phone || !data.email || !isCheckbox} onPress={() => checkUser()} style={ !data.name || !data.surname || !data.phone || !data.email || !isCheckbox ? [styles.button, { marginTop: 12, opacity: 0.5 }] : [styles.button, { marginTop: 12 }] }>
-                            <Text style={styles.buttonText}>Далее</Text>
+                        <TouchableOpacity disabled={!data.name || !data.surname || !data.phone || !isCheckbox} onPress={() => checkUser()} style={ !data.name || !data.surname || !data.phone || !isCheckbox ? [styles.button, { marginTop: 12, opacity: 0.5 }] : [styles.button, { marginTop: 12 }] }>
+                            <Text style={styles.buttonText}>{t("reg-screen.next-button")}</Text>
                         </TouchableOpacity>
                     </>
                 ) }
@@ -255,14 +348,14 @@ function RegScreen() {
                             ) }
                         </View>
                         <View style={styles.field}>
-                            <Text style={styles.fieldTitle}>Пароль</Text>
+                            <Text style={styles.fieldTitle}>{t("reg-screen.password")}</Text>
                             <View style={styles.fieldContainer}>
                                 <TextInput 
                                     name="password"
                                     value={data.password}
                                     onChangeText={(text) => handleChangeInput("password", text)}
                                     secureTextEntry={isPasswordHidden}
-                                    placeholder='Введите пароль'
+                                    placeholder={t("reg-screen.password-placeholder")}
                                     style={[styles.input, { width: '80%' }]}
                                 />
                                 <TouchableOpacity onPress={() => setIsPasswordHidden(!isPasswordHidden)}>
@@ -271,14 +364,14 @@ function RegScreen() {
                             </View>
                         </View>
                         <View style={styles.field}>
-                            <Text style={styles.fieldTitle}>Подтвердите пароль</Text>
+                            <Text style={styles.fieldTitle}>{t("reg-screen.confirm-pass")}</Text>
                             <View style={styles.fieldContainer}>
                                 <TextInput 
                                     name="confirmPassword" 
                                     value={data.confirmPassword} 
                                     onChangeText={(text) => handleChangeInput("confirmPassword", text)} 
                                     secureTextEntry={isConfirmPasswordHidden} 
-                                    placeholder='Подтвердите пароль' 
+                                    placeholder={t("reg-screen.confirm-pass-placeholder")}
                                     style={[styles.input, { width: '80%' }]}
                                 />
                                 <TouchableOpacity onPress={() => setIsConfirmPasswordConfirm(!isConfirmPasswordHidden)}>
@@ -288,7 +381,7 @@ function RegScreen() {
                         </View>
                         <Text style={[styles.errorMessage, { paddingVertical: 12 }]}>{message}</Text>
                         <TouchableOpacity disabled={!data.password || !data.confirmPassword} onPress={() => data.type === 'Спасатель' ? setStep(4) : reg()} style={ !data.password || !data.confirmPassword ? [styles.button, { marginTop: 0, opacity: 0.5 }] : [styles.button, { marginTop: 0 }] }>
-                            <Text style={styles.buttonText}>{ data.type === 'Спасатель' ? 'Далее' : 'Зарегистрироваться' }</Text>
+                            <Text style={styles.buttonText}>{ data.type === 'Спасатель' ? `${t("reg-screen.next-button")}` : `${t("reg-screen.reg-button")}` }</Text>
                         </TouchableOpacity>
                     </>
                 ) }
@@ -317,15 +410,15 @@ function RegScreen() {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.field}>
-                            <Text style={styles.fieldTitle}>Сертификат</Text>
+                            <Text style={styles.fieldTitle}>{t("reg-screen.certificate")}</Text>
                             <View style={styles.fieldContainer}>
-                                <Text style={[styles.input, { width: '80%' }]}>{ data.certificateName ? data.certificateName : 'Загрузите сертификат' }</Text>
+                                <Text style={[styles.input, { width: '80%' }]}>{ data.certificateName ? data.certificateName : `${t("reg-screen.certificate-placeholder")}` }</Text>
                                 <FontAwesome name="file-text-o" size={24} color="#7D8F9D" />
                             </View>
                         </View>
                         <Text style={[styles.errorMessage, { paddingVertical: 12 }]}>{message}</Text>
                         <TouchableOpacity disabled={!data.password || !data.confirmPassword} onPress={() => reg()} style={ !data.password || !data.confirmPassword ? [styles.button, { marginTop: 0, opacity: 0.5 }] : [styles.button, { marginTop: 0 }] }>
-                            <Text style={styles.buttonText}>Зарегистрироваться</Text>
+                            <Text style={styles.buttonText}>{t("reg-screen.reg-button")}</Text>
                         </TouchableOpacity>
                     </>
                 ) }

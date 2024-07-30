@@ -28,19 +28,28 @@ function PartnersScreen() {
                         <View style={styles.partner}>
                             <Image style={{ height: 50, width: 50, resizeMode: 'center' }} source={require("../../../images/partners/free-icon-font-sony-6424321.png")}/>
                         </View>
-                        <Text style={[styles.partnerTitle, { color: colors.text }]}>Sony</Text>
+                        <View style={{ marginLeft: 12, flex: 1 }}>
+                            <Text style={[styles.partnerTitle, { color: colors.text }]}>Sony Corporation</Text>
+                            <Text style={styles.partnerSubtitle}>Японский транснациональный конгломерат со штаб-квартирой в Токио. В группу компаний Sony входят: Sony Corporation, производящая потребительскую и профессиональную электронику</Text>
+                        </View>
                     </View>
                     <View style={styles.partnerContainer}>
                         <View style={styles.partner}>
                             <Image style={{ height: 50, width: 50, resizeMode: 'center' }} source={require("../../../images/partners/free-icon-font-unsplash-6423310.png")}/>
                         </View>
-                        <Text style={[styles.partnerTitle, { color: colors.text }]}>Компания</Text>
+                        <View style={{ marginLeft: 12, flex: 1 }}>
+                            <Text style={[styles.partnerTitle, { color: colors.text }]}>Unsplash</Text>
+                            <Text style={styles.partnerSubtitle}>Самый большой архив качественных и коммерческих/некоммерческих иконок. Настоящая кладезь для дизайнеров всех мастей</Text>
+                        </View>
                     </View>
                     <View style={styles.partnerContainer}>
                         <View style={styles.partner}>
                             <Image style={{ height: 50, width: 50, resizeMode: 'center' }} source={require("../../../images/partners/Group.png")}/>
                         </View>
-                        <Text style={[styles.partnerTitle, { color: colors.text }]}>Uber</Text>
+                        <View style={{ marginLeft: 12, flex: 1 }}>
+                            <Text style={[styles.partnerTitle, { color: colors.text }]}>Uber</Text>
+                            <Text style={styles.partnerSubtitle}>Uber Technologies Inc.; Uber — американская международная публичная компания из Сан-Франциско, создавшая одноимённое мобильное приложение для поиска, вызова и оплаты такси или частных водителей и доставки еды</Text>
+                        </View>
                     </View>
                 </View>
             </View>

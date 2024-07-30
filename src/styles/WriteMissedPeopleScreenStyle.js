@@ -24,7 +24,7 @@ const styles = ScaledSheet.create({
         marginVertical: 12
     },
     typeButton: {
-        padding: 16,
+        padding: 20,
         borderRadius: 12,
         backgroundColor: '#E13737',
         width: '48%',
@@ -113,7 +113,7 @@ const styles = ScaledSheet.create({
     },
     button: {
         width: '100%',
-        padding: 16,
+        padding: 20,
         borderRadius: 100,
         backgroundColor: '#E13737',
         justifyContent: 'center',

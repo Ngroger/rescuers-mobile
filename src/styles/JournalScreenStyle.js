@@ -157,6 +157,26 @@ const styles = ScaledSheet.create({
         fontFamily: 'NotoSans',
         width: '100%'
     },
+    buttonContainer: {
+        width: '100%',
+        padding: 16,
+        position: 'absolute',
+        zIndex: 100,
+        bottom: 0
+    },
+    button: {
+        justifyContent :'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(225, 55, 55, 1)',
+        marginBottom: 12,
+        padding: 16,
+        borderRadius: 1000
+    },
+    buttonText: {
+        fontSize: '18@s',
+        color: '#FFF',
+        fontFamily: 'NotoSans'
+    }
 });
 
 export default styles;

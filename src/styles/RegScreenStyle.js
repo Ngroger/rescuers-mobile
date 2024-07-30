@@ -97,8 +97,8 @@ const styles = ScaledSheet.create({
     },
     activeCheckbox: {
         backgroundColor: 'rgba(225, 55, 55, 1)',
-        height: '20@vs',
-        width: '20@s',
+        height: 20,
+        width: 20,
         borderRadius: 6,
         justifyContent: 'center',
         alignItems: 'center',

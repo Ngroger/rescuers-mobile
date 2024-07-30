@@ -2,11 +2,22 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.3)',  // затемненный фон
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',  // затемненный фон,
+        width: '100%',
+        position: 'absolute',
+        zIndex: 100000
+    },
+    navbar: {
+        width: '100%',
+        position: 'absolute',
+        zIndex: 10,
+        height: 160,
+        opacity: 0.5
     },
     buttonBack: {
         position: 'absolute',
+        zIndex: 100000000,
         width: '100%',
         height: '100%',
         backgroundColor: 'transparent',
@@ -20,23 +31,31 @@ const styles = StyleSheet.create({
         height: '100%',
         left: 0,
         width: '70%',
-        padding: 20,
         backgroundColor: '#FFF',
+        position: 'absolute',
+        zIndex: 100000000000,
     },
     header: {
         width: '100%',
         padding: 12,
         justifyContent: 'center',
         alignItems: 'center',
+        position: 'absolute',
+        zIndex: 10000000000,
+        marginTop: 12
     },
     logo: {
         width: 70,
-        height: 70
+        height: 70,
     },
     logoText: {
         marginTop: 6,
         fontSize: 28,
         fontFamily: 'NotoSansBlack'
+    },
+    imageCat: {
+        width: 17,
+        height: 17
     },
     profile: {
         flexDirection: 'row',
@@ -70,6 +89,13 @@ const styles = StyleSheet.create({
         fontFamily: 'NotoSansMedium',
         marginLeft: 6,
         color: 'rgba(31, 31, 31, 1)'
+    },
+    partners: {
+        width: '100%', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        display: 'flex', 
+        flexDirection: 'row',
     }
 });
 

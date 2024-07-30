@@ -8,6 +8,18 @@ const styles = ScaledSheet.create({
         zIndex: 1000,
         top: 0
     },
+    goBack: {
+        height: 35,
+        width: 35,
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        borderRadius: 1000,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        zIndex: 10000,
+        top: 30,
+        left: 30
+    },
     background: {
         width: '100%',
         height: '100%',

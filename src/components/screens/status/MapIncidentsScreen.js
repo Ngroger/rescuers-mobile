@@ -3,7 +3,7 @@ import styles from '../../../styles/MapIncidentsScreenStyle';
 import Navbar from '../../ux/Navbar';
 import { FontAwesome, MaterialIcons, Fontisto } from '@expo/vector-icons';
 import MapView, { Marker } from 'react-native-maps';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../themes/ThemeProvider';
@@ -13,6 +13,7 @@ import LangStore from '../../../store/LangStore';
 import * as Location from 'expo-location';
 import { StatusBar } from 'expo-status-bar';
 import MapViewDirections from 'react-native-maps-directions';
+import UserStorage from '../../../store/UserStorage';
 
 function MapIncidentsScreen() {
     const navigation = useNavigation();
@@ -33,14 +34,33 @@ function MapIncidentsScreen() {
     const mapRef = useRef(null);
     const [incidents, setIncidents] = useState([]);
     const [isRoute, setIsRoute] = useState(false);
+    const [markerIconSize, setMarkterIconSize] = useState(48);
+    const [userId, setIsUserId] = useState();
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         fetchLanguage();
         fetchIcidents();
-        if (isRoute) {
-            fetchMyLocation();
+        fetchUserId();
+    }, [userId]);
+    
+    useEffect(() => {
+        if (isRoute && isFocused) {
+            const interval = setInterval(fetchAddress, 5000);
+
+            return () => {
+                clearInterval(interval);
+            }
         }
-    }, [isRoute]);
+    }, [isRoute, isFocused]);
+
+    const fetchUserId = async () => {
+        const userId = await UserStorage.getUserId();
+        if (userId) {
+            setIsUserId(userId);
+            console.log("userId: ", userId);
+        }
+    }
 
     const fetchIcidents = async () => {
         try {
@@ -129,29 +149,7 @@ function MapIncidentsScreen() {
             longitudeDelta: 0.01,
         }, 1000); // Анимация длительностью 1 секунда
         setIsPlaceholder(false)
-    }
-
-    const fetchMyLocation = async () => {
-        try {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                return;
-            }
-    
-            let location = await Location.getCurrentPositionAsync({});
-
-            handleChangeInput("my_latitude", location.coords.latitude);
-            handleChangeInput("my_longitude", location.coords.longitude);
-
-        } catch (error) {
-            if (error.code === 'E_LOCATION_UNAVAILABLE') {
-                console.log('Current location is unavailable. Make sure that location services are enabled.');
-                Alert.alert("Уведомление", "Пожалуйста, убедитесь, что у вас включена геолокация");
-            } else {
-                console.log('Error fetching address:', error);
-            }
-        }
-    }
+    }    
 
     const fetchAddress = async () => {
         try {
@@ -171,6 +169,10 @@ function MapIncidentsScreen() {
                 longitudeDelta: 0.01,
             }, 1000);
 
+            if (userId == selectedData?.rescuers_id) {
+                updateMyLocation(location.coords.latitude, location.coords.longitude)
+            }
+
         } catch (error) {
             if (error.code === 'E_LOCATION_UNAVAILABLE') {
                 console.log('Current location is unavailable. Make sure that location services are enabled.');
@@ -181,9 +183,34 @@ function MapIncidentsScreen() {
         }
     };
 
+    const updateMyLocation = async (latitude, longitude) => {
+        try {
+            await fetch('https://spasateli.kz/api/user/update-location', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    longitude: longitude,
+                    latitude: latitude,
+                    incident_id: selectedData?.incident_id
+                })
+            })
+        } catch (error) {
+            console.log("updateMyLocation: ", error);
+        }
+    }
+
     const selectIncident = (incident) => {
         setSelectedData(incident);
     }
+
+    const handleDragEnd = (e) => {
+        const newLocation = e.nativeEvent.coordinate;
+        handleChangeInput("my_latitude", newLocation.latitude);
+        handleChangeInput("my_longitude", newLocation.longitude);
+        setMarkterIconSize(48)
+    };
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
@@ -229,24 +256,46 @@ function MapIncidentsScreen() {
                         <Marker
                             key={index}
                             onPress={() => selectIncident(item)}
+                            style={ item.rescuers_id == userId && { position: 'absolute', zIndex: 10000 } }
                             coordinate={{
                                 latitude: item.latitude,
                                 longitude: item.longitude,
                             }}
                         >
-                            <TouchableOpacity onPress={() => console.log(item)} style={ selectedData?.incident_id === item.incident_id ? styles.activeMarker : styles.marker }>
-                                <FontAwesome name="warning" size={20} color={ selectedData?.incident_id === item.incident_id ? "#FFF" : "#E13737" } />
+                            <TouchableOpacity
+                                onPress={() => console.log(item)}
+                                style={
+                                    selectedData?.incident_id === item.incident_id
+                                    ? styles.activeMarker
+                                    : item.rescuers_id == userId
+                                    ? [styles.marker, { backgroundColor: '#49d150' }]
+                                    : item.isActive === 1
+                                    ? [styles.marker, { backgroundColor: '#ffd000' }]
+                                    : styles.marker
+                                }
+                                >
+                                <FontAwesome
+                                    name="warning"
+                                    size={20}
+                                    color={
+                                    selectedData?.incident_id === item.incident_id ? "#E13737" : "#FFF"
+                                    }
+                                />
                             </TouchableOpacity>
                         </Marker>
                         )) }
                     { data.my_latitude && data.my_longitude && (
                         <Marker
+                            draggable={true}
+                            onDragStart={() => setMarkterIconSize(64)}
+                            onDragEnd={handleDragEnd}
+                            style={{ position: 'absolute', zIndex: 10000 }}
                             coordinate={{
                                 latitude: parseFloat(data.my_latitude),
                                 longitude: parseFloat(data.my_longitude),
                             }}
                         >
-                            <Fontisto name="map-marker-alt" size={48} color="#E13737" />
+                            <Fontisto name="map-marker-alt" size={markerIconSize} color="#E13737" />
                         </Marker>
                     ) }
                     { isRoute && (
@@ -276,7 +325,7 @@ function MapIncidentsScreen() {
                 ) }
                 { isRoute && (
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate("JournalInfoScreen", { data: selectedData })} style={styles.button}>
+                        <TouchableOpacity onPress={() => navigation.navigate("JournalInfoScreen", { data: selectedData, isRescuers: true })} style={styles.button}>
                             <Text style={styles.buttonText}>{t("add-urgent-screen.next-button")}</Text>
                         </TouchableOpacity>
                     </View>

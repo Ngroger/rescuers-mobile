@@ -83,7 +83,7 @@ const styles = ScaledSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        zIndex: 10000,
+        zIndex: -10,
         bottom: 30,
         right: '30@msr'
     },

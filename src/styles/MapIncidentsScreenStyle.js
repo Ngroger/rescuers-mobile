@@ -79,7 +79,7 @@ const styles = ScaledSheet.create({
     marker: {
         width: 40,
         height: 40,
-        backgroundColor: '#FFF',
+        backgroundColor: '#E13737',
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',
@@ -96,7 +96,7 @@ const styles = ScaledSheet.create({
     activeMarker: {
         width: 40,
         height: 40,
-        backgroundColor: '#E13737',
+        backgroundColor: '#FFF',
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',

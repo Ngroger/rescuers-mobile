@@ -23,6 +23,7 @@ function JournalScreen() {
     const fetchUserId = async () => {
         const userId = await UserStorage.getUserId();
         if (userId) {
+            console.log(userId);
             fetchJournal(userId);
         }
     };
@@ -81,7 +82,7 @@ function JournalScreen() {
                 <ScrollView>
                     <View style={styles.container}>
                         {filteredJournal.map((item, index) => (
-                            <View key={index} style={[styles.journalCard, { backgroundColor: colors.card }]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("JournalInfoScreen", { data: item, isRescuers: false })} key={index} style={[styles.journalCard, { backgroundColor: colors.card }]}>
                                 <View style={styles.journalHeader}>
                                     <Text style={[styles.address, { color: colors.text }]}>{item.location}</Text>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex' }}>
@@ -90,7 +91,7 @@ function JournalScreen() {
                                     </View>
                                 </View>
                                 <View style={[styles.journalInfo, { marginVertical: 4 }]}>
-                                    <Text style={[styles.status, { color: colors.thinText }]}>Поиск спасателей</Text>
+                                    <Text style={[styles.status, { color: colors.thinText }]}>{item.status}</Text>
                                 </View>
                                 <View style={styles.journalInfo}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex' }}>
@@ -99,7 +100,7 @@ function JournalScreen() {
                                     </View>
                                     <Text style={[styles.text, { color: colors.thinText }]}>{formatDate(item.created_at)}</Text>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                     </View>
                 </ScrollView>

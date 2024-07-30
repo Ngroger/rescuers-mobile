@@ -22,7 +22,7 @@ const styles = ScaledSheet.create({
         position: 'absolute',
         zIndex: 100000,
         right: '32@msr',
-        top: '24@msr'
+        top: '32@msr'
     },
     profileInfo: {
         width: '100%',
@@ -90,6 +90,15 @@ const styles = ScaledSheet.create({
         fontSize: '16@s',
         color: 'rgba(31, 31, 31, 1)',
         fontFamily: 'NotoSans',
+    },
+    info: {
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(31, 31, 31, 0.3)',
+        marginBottom: 12
+    },
+    infoTitle: {
+        fontSize: '20@s',
+        fontFamily: 'NotoSans'
     }
 });
 

@@ -8,11 +8,11 @@ const styles = ScaledSheet.create({
         justifyContent: 'space-between',
         display: 'flex',
         position: 'absolute',
-        zIndex: 1000,
+        zIndex: 100,
         top: 0,
         width: '100%',
-        paddingTop: '24@msr',
-        paddingBottom: '6@msr',
+        paddingTop: '28@msr',
+        paddingBottom: '12@msr',
         backgroundColor: '#FFF'
     },
     title: {

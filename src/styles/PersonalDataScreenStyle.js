@@ -101,7 +101,7 @@ const styles = ScaledSheet.create({
         position: 'absolute',
         zIndex: 100,
         bottom: 0,
-        padding: 16,
+        padding: 20,
         width: '100%'
     },
     button: {
@@ -109,7 +109,7 @@ const styles = ScaledSheet.create({
         alignItems: 'center',
         backgroundColor: '#E13737',
         borderRadius: 1000,
-        padding: 16
+        padding: 20
     },
     buttonText: {
         fontSize: '18@s',

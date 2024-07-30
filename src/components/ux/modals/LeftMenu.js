@@ -1,17 +1,19 @@
 import { Text, View, TouchableOpacity, Modal, Image } from 'react-native';
 import styles from '../../../styles/modals/LeftMenuStyle';
-import { FontAwesome5, MaterialCommunityIcons, Feather, FontAwesome, AntDesign  } from '@expo/vector-icons';
+import { FontAwesome5, MaterialCommunityIcons, Feather, FontAwesome, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import UserStorage from '../../../store/UserStorage';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../themes/ThemeProvider';
+import { StatusBar } from 'expo-status-bar'
 
-function LeftMenu({ modalVisible, closeModal }) {
+function LeftMenu({ closeModal }) {
     const navigation = useNavigation();
     const [userData, setUserData] = useState(null);
     const { t } = useTranslation();
-    const { colors } = useTheme();
+    const { colors, dark } = useTheme();
+
     useEffect(() => {
         fetchUserData();
     }, []);
@@ -39,19 +41,15 @@ function LeftMenu({ modalVisible, closeModal }) {
     }
 
     return (
-        <Modal
-            animationType='fade'
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={closeModal}
-        >
-            <View style={styles.background}>
-                <TouchableOpacity style={styles.buttonBack} onPress={closeModal} />
-                <View style={[styles.container, { backgroundColor: colors.background }]}>
-                    <View style={styles.header}>
-                        <Image source={require("../../../images/logo.png")} style={styles.logo}/>
-                        <Text style={[styles.logoText, { color: colors.text }]}>СПАСАТЕЛЬ</Text>
-                    </View>
+        <View style={styles.background}>
+            <TouchableOpacity style={styles.buttonBack} onPress={closeModal} />
+            <View style={[styles.container, { backgroundColor: colors.background }]}>
+            <Image style={styles.navbar} source={require('../../../images/navbar.png')}/>
+                <View style={styles.header}>
+                    <Image source={require("../../../images/logo.png")} style={styles.logo}/>
+                    <Text style={[styles.logoText, { color: colors.text }]}>СПАСАТЕЛЬ</Text>
+                </View>
+                <View style={{ paddingHorizontal: 20, marginTop: 150 }}>
                     <TouchableOpacity onPress={() => navigation.navigate("ProfileScreen", { userData: userData })} style={styles.profile}>
                         <Image source={{ uri: `https://spasateli.kz/api/user/avatar/${userData?.photo}` }} style={styles.photoProfile}/>
                         <View style={{ marginLeft: 6 }}>
@@ -62,73 +60,106 @@ function LeftMenu({ modalVisible, closeModal }) {
                     { userData?.type === 'Спасатель' && (
                         <>
                             <TouchableOpacity onPress={() => (navigation.navigate("StatusScreen"), closeModal())} style={styles.buttonContainer}>
-                                <AntDesign name="tag" size={17} color={ colors.text } />
+                                <Image 
+                                    style={styles.imageCat}
+                                    source={dark ? require("../../../images/menu_cat/status_light.png") : require("../../../images/menu_cat/status_dark.png")}
+                                />
                                 <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.my-status")}</Text>
                             </TouchableOpacity>
-                            {/* <TouchableOpacity onPress={() => (navigation.navigate("MainScreen", { slug: "test-call", type: 'Тестовый' }), closeModal())} style={styles.buttonContainer}>
-                                <FontAwesome name="warning" size={17} color={ colors.text } />
+                            <TouchableOpacity onPress={() => (navigation.navigate("ActualIncident"), closeModal())} style={styles.buttonContainer}>
+                                <Image 
+                                    style={styles.imageCat}
+                                    source={dark ? require("../../../images/menu_cat/incident_light.png") : require("../../../images/menu_cat/incident_dark.png")}
+                                />
                                 <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.actual-incident")}</Text>
-                            </TouchableOpacity> */}
+                            </TouchableOpacity>
                             {/* <TouchableOpacity onPress={() => handleNavigation("EducationMapScreen")} style={styles.buttonContainer}>
-                                <FontAwesome name="users" size={17} color={ colors.text } />
+                                <Image 
+                                    style={styles.imageCat}
+                                    source={dark ? require("../../../images/menu_cat/teams_light.png") : require("../../../images/menu_cat/teams_dark.png")}
+                                />
                                 <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.teams")}</Text>
                             </TouchableOpacity> */}
                         </>
                     ) }
-                    { userData?.type === 'Очевидец' && (
-                        <>
-                            <TouchableOpacity onPress={() => (navigation.navigate("MainScreen", { slug: 'urgent-call', type: 'Актуальный' }), closeModal())} style={styles.buttonContainer}>
-                                <FontAwesome5 name="hands-helping" size={17} color={ colors.text } />
-                                <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.urgent-call")}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => (navigation.navigate("MainScreen", { slug: "test-call", type: 'Тестовый' }), closeModal())} style={styles.buttonContainer}>
-                                <Feather name="phone-call" size={17} color={ colors.text } />
-                                <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.test-call")}</Text>
-                            </TouchableOpacity>
-                        </>
-                    ) }
+                    <TouchableOpacity onPress={() => (navigation.navigate("MainScreen", { slug: 'urgent-call', type: 'Актуальный' }), closeModal())} style={styles.buttonContainer}>
+                        <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/urgent_call_light.png") : require("../../../images/menu_cat/urgent_call_dark.png")}
+                        />
+                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.urgent-call")}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => (navigation.navigate("MainScreen", { slug: "test-call", type: 'Тестовый' }), closeModal())} style={styles.buttonContainer}>
+                        <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/test_call_light.png") : require("../../../images/menu_cat/test_call_dark.png")}
+                        />
+                        <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.test-call")}</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleNavigation("EducationMapScreen")} style={styles.buttonContainer}>
-                        <FontAwesome5 name="graduation-cap" size={17} color={ colors.text } />
+                        <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/edducation_light.png") : require("../../../images/menu_cat/edducation_dark.png")}
+                        />
                         <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.education")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleNavigation("ForumListScreen")} style={styles.buttonContainer}>
-                        <MaterialCommunityIcons  name="forum" size={17} color={ colors.text } />
+                        <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/forum_light.png") : require("../../../images/menu_cat/forum_dark.png")}
+                        />
                         <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.forum")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleNavigation("BlogListScreen")} style={styles.buttonContainer}>
-                        <MaterialCommunityIcons  name="smart-card" size={17} color={ colors.text } />
+                        <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/blog_light.png") : require("../../../images/menu_cat/blog_dark.png")}
+                        />
                         <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.blog")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate("DisastersListScreen")} style={styles.buttonContainer}>
-                        <Feather name="wind" size={17} color={ colors.text } />
+                        <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/disasters_light.png") : require("../../../images/menu_cat/disasters_dark.png")}
+                        />
                         <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.disasters")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate("MissedPeopleScreen")} style={styles.buttonContainer}>
-                        <FontAwesome name="user" size={17} color={ colors.text } />
+                        <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/missed_light.png") : require("../../../images/menu_cat/missed_dark.png")}
+                        />
                         <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.missed")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate("ContactScreen")} style={styles.buttonContainer}>
-                        <MaterialCommunityIcons  name="contacts" size={17} color={ colors.text } />
+                        <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/contacts_light.png") : require("../../../images/menu_cat/contacts_dark.png")}
+                        />
                         <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.contacts")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => navigation.navigate("PartnersScreen")} style={styles.buttonContainer}>
-                        <Feather  name="users" size={17} color={ colors.text } />
+                            <Image 
+                            style={styles.imageCat}
+                            source={dark ? require("../../../images/menu_cat/partner_light.png") : require("../../../images/menu_cat/partner_dark.png")}
+                        />
                         <Text style={[styles.buttonText, { color: colors.text }]}>{t("menu-list.partners")}</Text>
                     </TouchableOpacity>
-                    <View style={{ width: '70%', justifyContent: 'space-between', alignItems: 'center', display: 'flex', flexDirection: 'row', marginTop: 12 }}>
-                        <View style={{ backgroundColor: '#FFF', width: 50, height: 50, shadowColor: "#000", borderRadius: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3, }, shadowOpacity: 0.2, shadowRadius: 4.65, elevation: 7, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={styles.partners}>
+                        <View style={{ backgroundColor: '#FFF', width: 50, height: 50, shadowColor: "#000", borderRadius: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3, }, shadowOpacity: 0.2, shadowRadius: 4.65, elevation: 7, justifyContent: 'center', alignItems: 'center', margin: 12 }}>
                             <Image style={{ width: 32, height: 25 }} source={require("../../../images/partners/free-icon-font-sony-6424321.png")}/>
                         </View>
-                        <View style={{ backgroundColor: '#FFF', width: 50, height: 50, shadowColor: "#000", borderRadius: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3, }, shadowOpacity: 0.2, shadowRadius: 4.65, elevation: 7, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ backgroundColor: '#FFF', width: 50, height: 50, shadowColor: "#000", borderRadius: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3, }, shadowOpacity: 0.2, shadowRadius: 4.65, elevation: 7, justifyContent: 'center', alignItems: 'center', margin: 12 }}>
                             <Image style={{ width: 32, height: 6.68 }} source={require("../../../images/partners/Group.png")}/>
                         </View>
-                        <View style={{ backgroundColor: '#FFF', width: 50, height: 50, shadowColor: "#000", borderRadius: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3, }, shadowOpacity: 0.2, shadowRadius: 4.65, elevation: 7, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ backgroundColor: '#FFF', width: 50, height: 50, shadowColor: "#000", borderRadius: 12, shadowColor: "#000", shadowOffset: { width: 0, height: 3, }, shadowOpacity: 0.2, shadowRadius: 4.65, elevation: 7, justifyContent: 'center', alignItems: 'center', margin: 12 }}>
                             <Image style={{ width: 22, height: 22 }} source={require("../../../images/partners/free-icon-font-unsplash-6423310.png")}/>
                         </View>
                     </View>
                 </View>
             </View>
-        </Modal>
+            <StatusBar translucent={true} backgroundColor='transparent'/>
+        </View>
     )
 };
 

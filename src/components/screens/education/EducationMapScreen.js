@@ -19,18 +19,19 @@ function EducationMapScreen() {
     const [selectedEducationCenter, setSelectedEducationCenter] = useState(null);
     const {t} = useTranslation();
     const cities = [
-        { name: "Алматы", slug: "almaty" },
-        { name: "Астана", slug: "astana" },
-        { name: "Шымкент", slug: "shimkent" },
-        { name: "Актобе", slug: "aktobe" },
-        { name: "Караганда", slug: "karaganda" },
-        { name: "Тараз", slug: "taraz" },
-        { name: "Павлодар", slug: "pavlodar" },
-        { name: "Усть-Каменогорск", slug: "usty-kamenogorsk" },
-        { name: "Семей", slug: "semey" },
-        { name: "Атырау", slug: "atyrau" },
-        { name: "Костанай", slug: "kostanay" },
+        { name: "Алматы", slug: "almaty", latitude: 43.2220, longitude: 76.8512 },
+        { name: "Астана", slug: "astana", latitude: 51.1694, longitude: 71.4491 },
+        { name: "Шымкент", slug: "shimkent", latitude: 42.3417, longitude: 69.5901 },
+        { name: "Актобе", slug: "aktobe", latitude: 50.2839, longitude: 57.1670 },
+        { name: "Караганда", slug: "karaganda", latitude: 49.8047, longitude: 73.1094 },
+        { name: "Тараз", slug: "taraz", latitude: 42.9000, longitude: 71.3667 },
+        { name: "Павлодар", slug: "pavlodar", latitude: 52.3000, longitude: 76.9500 },
+        { name: "Усть-Каменогорск", slug: "usty-kamenogorsk", latitude: 49.9481, longitude: 82.6194 },
+        { name: "Семей", slug: "semey", latitude: 50.4119, longitude: 80.2270 },
+        { name: "Атырау", slug: "atyrau", latitude: 47.1164, longitude: 51.9200 },
+        { name: "Костанай", slug: "kostanay", latitude: 53.2144, longitude: 63.6246 },
     ];
+
     const { colors, dark } = useTheme();
 
     const mapRef = useRef(null); // Реф для MapView
@@ -53,11 +54,17 @@ function EducationMapScreen() {
         }
     }
 
-    const handleCity = (newCity, citySlug) => {
+    const handleCity = (newCity, citySlug, longitude, latitude) => {
         setCity(newCity);
         setCitySlug(citySlug);
         setIsOpenCities(false);
         setEducationCenters();
+        mapRef.current.animateToRegion({
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+        }, 1000);
     }
 
     const selectEntity = (entity) => {
@@ -80,14 +87,6 @@ function EducationMapScreen() {
             <Navbar isLogo={false} title={t("menu-list.education")}/>
             <View style={{ width: '100%', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', display: 'flex', marginTop: 64, paddingHorizontal: 24, marginBottom: 12 }}>
                 <Text style={[styles.title, { color: colors.text }]}>{t("education-screen.title")}</Text>
-                <View style={styles.entitySelector}>
-                    <TouchableOpacity onPress={() => selectEntity("Юр.лицо")}>
-                        <Text style={entity === 'Юр.лицо' ? [styles.entity, { color: colors.thinText }] : [styles.entity, { opacity: 0.3, color: colors.text }]}>{t("education-screen.entity")}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => selectEntity("Физ.лицо")}>
-                        <Text style={entity === 'Физ.лицо' ? [styles.entity, { marginLeft: 6, color: colors.text }] : [styles.entity, { opacity: 0.3, marginLeft: 6, color: colors.text }]}>{t("education-screen.individual")}</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
             <MapView 
                 ref={mapRef} // Привязка рефа к MapView
@@ -128,9 +127,9 @@ function EducationMapScreen() {
                     </TouchableOpacity>
                     {isOpenCities && (
                         <View style={styles.cities}>
-                            { cities.map((city, index) => (
-                                <TouchableOpacity key={index} onPress={() => handleCity(city.name, city.slug)} style={styles.cityContainer}>
-                                    <Text style={[styles.city, { color: colors.thinText }]}>{t(`education-screen.cities.${city.slug}`)}</Text>
+                            { cities.map((item, index) => (
+                                <TouchableOpacity disabled={city === item.name} key={index} onPress={() => handleCity(item.name, item.slug, item.longitude, item.latitude)} style={styles.cityContainer}>
+                                    <Text style={[styles.city, { color: colors.thinText }]}>{t(`education-screen.cities.${item.slug}`)}</Text>
                                 </TouchableOpacity>
                             )) }
                         </View>

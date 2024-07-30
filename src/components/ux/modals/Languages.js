@@ -54,10 +54,16 @@ function Languages({ modalVisible, closeModal }) {
                             { language === 'ru' && <View style={styles.dot}/> }
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => selectLanguage("kz")} style={[styles.selectorContainer, { borderBottomWidth: 0, borderBottomColor: colors.thinText }]}>
+                    <TouchableOpacity onPress={() => selectLanguage("kz")} style={[styles.selectorContainer, { borderBottomWidth: 0.5, borderBottomColor: colors.thinText }]}>
                         <Text style={[styles.selectorText, { color: colors.text }]}>{t("change-language-modal.kz")}</Text>
                         <View style={[styles.selector, { borderColor: colors.thinText }]}>
                             { language === 'kz' && <View style={styles.dot}/> }
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => selectLanguage("eng")} style={[styles.selectorContainer, { borderBottomWidth: 0, borderBottomColor: colors.thinText }]}>
+                        <Text style={[styles.selectorText, { color: colors.text }]}>{t("change-language-modal.eng")}</Text>
+                        <View style={[styles.selector, { borderColor: colors.thinText }]}>
+                            { language === 'eng' && <View style={styles.dot}/> }
                         </View>
                     </TouchableOpacity>
                 </View>

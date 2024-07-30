@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(225, 55, 55, 1)',
         borderRadius: 1000,
-        padding: 16
+        padding: 20
     },
     buttonText: {
         fontSize: 18,

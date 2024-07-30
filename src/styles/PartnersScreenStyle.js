@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
+import { ScaledSheet } from "react-native-size-matters";
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     background: {
         width: '100%',
         height: '100%',
@@ -59,14 +59,11 @@ const styles = StyleSheet.create({
         marginVertical: 32
     },
     partnersContainer: {
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        display: 'flex',
-        justifyContent: 'center'
     },
     partnerContainer: {
-        justifyContent: 'center',
-        alignItems:'center'
+        flexDirection: 'row', 
+        display: 'flex',
+        marginBottom: 16
     },
     partner: {
         borderRadius: 12,
@@ -84,14 +81,16 @@ const styles = StyleSheet.create({
         elevation: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 16
     },
     partnerTitle: {
-        fontSize: 18,
+        fontSize: '20@s',
         color: 'rgba(31, 31, 31, 1)',
         fontFamily: 'NotoSans',
-        marginTop: 4
     },
+    partnerSubtitle: {
+        fontSize: '14@s',
+        fontFamily: 'NotoSansLight'
+    }
 });
 
 export default styles;

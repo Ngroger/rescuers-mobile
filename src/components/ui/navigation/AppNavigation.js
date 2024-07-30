@@ -35,6 +35,10 @@ import WriteMissedPeopleScreen from "../../screens/missed/WriteMissedPeopleScree
 import StatusScreen from "../../screens/status/StatusPage";
 import MapIncidentsScreen from "../../screens/status/MapIncidentsScreen";
 import Journal from "../../screens/status/JournalScreen";
+import ActualIncidentScreen from "../../screens/actual/ActualIncidentScreen";
+import ReasonScreen from "../../screens/actual/ReasonScreen";
+import SelectLanguageScreen from "../../screens/SelectLanguageScreen";
+import RouteMapScreen from "../../screens/situation/RouteMapScreen";
 
 function AppNavigation() {
     const Stack = createStackNavigator();
@@ -73,8 +77,9 @@ function AppNavigation() {
 
     return (
         <NavigationContainer ref={navigationRef}>
-            <Stack.Navigator initialRouteName={isLogged ? "MainScreen" : "AuthScreen"}>
+            <Stack.Navigator initialRouteName={isLogged ? "MainScreen" : "SelectLanguage"}>
                 <Stack.Screen name="AuthScreen" component={AuthScreen} options={{ headerShown: false }}/>
+                <Stack.Screen name="SelectLanguage" component={SelectLanguageScreen} options={{ headerShown: false }}/>
                 <Stack.Screen name="RegScreen" component={RegScreen} options={{ headerShown: false }}/>
                 <Stack.Screen name="MainScreen" component={MainScreen} options={{ headerShown: false }}/>
                 <Stack.Screen name="SelectSituationScreen" component={SelectSituationScreen} options={{ headerShown: false }}/>
@@ -106,6 +111,9 @@ function AppNavigation() {
                 <Stack.Screen name="StatusScreen" component={StatusScreen} options={{ headerShown: false }}/>
                 <Stack.Screen name="MapIncidents" component={MapIncidentsScreen} options={{ headerShown: false }}/>
                 <Stack.Screen name="Journal" component={Journal} options={{ headerShown: false }}/>
+                <Stack.Screen name="ActualIncident" component={ActualIncidentScreen} options={{ headerShown: false }}/>
+                <Stack.Screen name="ReasonScreen" component={ReasonScreen} options={{ headerShown: false }}/>
+                <Stack.Screen name="RouteMap" component={RouteMapScreen} options={{ headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

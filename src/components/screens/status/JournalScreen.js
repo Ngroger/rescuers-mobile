@@ -81,7 +81,7 @@ function Journal() {
                 <ScrollView>
                     <View style={styles.container}>
                         {filteredJournal.map((item, index) => (
-                            <TouchableOpacity onPress={() => navigation.navigate("JournalInfoScreen", { data: item })} key={index} style={[styles.journalCard, { backgroundColor: colors.card }]}>
+                            <TouchableOpacity onPress={() => navigation.navigate("JournalInfoScreen", { data: item, isRescuers: true })} key={index} style={[styles.journalCard, { backgroundColor: colors.card }]}>
                                 <View style={styles.journalHeader}>
                                     <Text style={[styles.address, { color: colors.text }]}>{item.location}</Text>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex' }}>
@@ -90,7 +90,7 @@ function Journal() {
                                     </View>
                                 </View>
                                 <View style={[styles.journalInfo, { marginVertical: 4 }]}>
-                                    <Text style={[styles.status, { color: colors.thinText }]}>Поиск спасателей</Text>
+                                    <Text style={[styles.status, { color: colors.thinText }]}>{item.status}</Text>
                                 </View>
                                 <View style={styles.journalInfo}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex' }}>

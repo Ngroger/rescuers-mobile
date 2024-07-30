@@ -36,10 +36,10 @@ const styles = ScaledSheet.create({
     statusButton: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor :'#E13737',
+        backgroundColor :'#7D8F9D',
         borderRadius: 12,
         width: '48%',
-        padding: 16
+        padding: 20
     },
     statusText: {
         fontSize: '20@s',
@@ -49,7 +49,7 @@ const styles = ScaledSheet.create({
     buttonsContainer: {
         position: 'absolute',
         zIndex: 1000,
-        padding: 16,
+        padding: 20,
         bottom: 0,
         width: '100%'
     },
@@ -60,7 +60,7 @@ const styles = ScaledSheet.create({
         backgroundColor: '#E13737',
         borderRadius: 100,
         marginBottom: 12,
-        padding: 16
+        padding: 20
     },
     buttonText: {
         fontSize: '20@s',
