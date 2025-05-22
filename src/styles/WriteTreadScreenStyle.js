@@ -28,7 +28,7 @@ const styles = ScaledSheet.create({
         width: '100%',
         borderBottomColor: 'rgba(31, 31, 31, 0.3)',
         borderBottomWidth: 1,
-        paddingVertical: '12@msr'
+        paddingVertical: '8@msr'
     },
     fieldTitle: {
         fontSize: '16@s',
@@ -55,7 +55,7 @@ const styles = ScaledSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '48@msr'
-        },
+    },
     buttonText: {
         fontSize: '20@s',
         color: 'rgba(255, 255, 255, 1)',

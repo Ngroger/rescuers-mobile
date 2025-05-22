@@ -13,13 +13,13 @@ function MissedPeopleScreen() {
     const [filter, setFilter] = useState("people");
     const [missed, setMissed] = useState([]);
     const navigation = useNavigation();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const { colors } = useTheme();
 
     useEffect(() => {
         fetchMissed();
     }, []);
-    
+
     useEffect(() => {
         applyFilter();
     }, [filter, missed]);
@@ -52,31 +52,40 @@ function MissedPeopleScreen() {
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
-            <Navbar title={t("menu-list.missed")} isLogo={false}/>
+            <Navbar title={t("menu-list.missed")} isLogo={false} />
             <View style={[styles.container, { marginTop: 64 }]}>
                 <TouchableOpacity onPress={() => navigation.navigate("WriteMissedPeopleScreen")} style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', marginBottom: 12 }}>
                     <Text style={{ fontSize: 20, color: colors.text }}>{t("missed-screen.report-a-missed")}</Text>
                     <View style={styles.addIcon}>
-                        <AntDesign name='plus' color='rgba(255, 255, 255, 1)' size={16}/>
+                        <AntDesign name='plus' color='rgba(255, 255, 255, 1)' size={16} />
                     </View>
                 </TouchableOpacity>
             </View>
             <View style={[styles.container, { paddingVertical: 0, marginBottom: 12 }]}>
                 <ScrollView horizontal={true} style={styles.filters}>
-                    <TouchableOpacity onPress={() => setFilter("people")} style={ filter !== 'people' && { opacity: 0.5 } }>
+                    <TouchableOpacity onPress={() => setFilter("people")} style={filter !== 'people' && { opacity: 0.5 }}>
                         <Text style={[styles.filter, { color: colors.text }]}>{t("missed-screen.search-human")}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setFilter("animal")} style={ filter === 'animal' ? { marginLeft: 12 } : { marginLeft: 12, opacity: 0.5 } }>
+                    <TouchableOpacity onPress={() => setFilter("animal")} style={filter === 'animal' ? { marginLeft: 12 } : { marginLeft: 12, opacity: 0.5 }}>
                         <Text style={[styles.filter, { color: colors.text }]}>{t("missed-screen.search-animal")}</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>
             <View style={styles.container}>
-                { filteredMissed.map((item, index) => (
-                    <MissingCard key={index} data={item}/>
-                )) }
+                {missed.length > 0 ? (
+                    <>
+                        {filteredMissed.map((item, index) => (
+                            <MissingCard key={index} data={item} />
+                        ))}
+                    </>
+                ) : (
+                    <View>
+                        <Text style={styles.noListTitle}>Пропавших не обнаружено</Text>
+                        <Text style={styles.noListSubtitle}>Здесь будет отображаться список всех пропущенных людей и животных</Text>
+                    </View>
+                )}
             </View>
-            <StatusBar translucent={true} backgroundColor='transparent'/>
+            <StatusBar translucent={true} backgroundColor='transparent' />
         </View>
     )
 };

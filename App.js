@@ -6,10 +6,11 @@ import LangStore from './src/store/LangStore';
 import { ThemeProvider } from './src/themes/ThemeProvider';
 import ThemeStore from './src/store/ThemeStore';
 import { useTheme } from './src/themes/ThemeProvider';
+import { OnlineProvider } from './src/context/OnlineProvider';
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  const { dark, colors, setScheme } = useTheme();
+  const { setScheme } = useTheme();
 
   useEffect(() => {
     const loadFontsAndLanguage = async () => {
@@ -36,9 +37,11 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider>
-      <AppNavigation />
-    </ThemeProvider>
+    <OnlineProvider>
+      <ThemeProvider>
+        <AppNavigation />
+      </ThemeProvider>
+    </OnlineProvider>
   );
 };
 

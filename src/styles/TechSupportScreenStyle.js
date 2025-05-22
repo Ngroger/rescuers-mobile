@@ -73,7 +73,9 @@ const styles = StyleSheet.create({
         width: '90%'
     },
     messages: {
-        
+        flex: 1,
+        flexGrow: 1,
+        width: '100%'
     },
     message: {
         paddingHorizontal: 24,
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         backgroundColor: 'rgba(231, 95, 95, 1)',
         justifyContent: 'center',
-        alignItems:'center'
+        alignItems: 'center'
     },
     photoProfile: {
         width: 50,

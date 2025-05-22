@@ -24,7 +24,7 @@ const styles = ScaledSheet.create({
         width: '100%',
         borderBottomColor: 'rgba(31, 31, 31, 0.3)',
         borderBottomWidth: 1,
-        paddingVertical: '6@msr'
+        paddingVertical: '8@msr'
     },
     fieldTitle: {
         fontSize: '16@s',
@@ -47,7 +47,7 @@ const styles = ScaledSheet.create({
         marginVertical: 2
     },
     city: {
-        fontSize: '18@s',
+        fontSize: '14@s',
         fontFamily: 'NotoSans',
         color: 'rgba(31, 31, 31, 0.3)'
     },
@@ -75,9 +75,10 @@ const styles = ScaledSheet.create({
         alignItems: 'center'
     },
     address: {
-        fontSize: '16@s',
+        fontSize: '14@s',
         color: 'rgba(31, 31, 31, 1)',
-        fontFamily: 'NotoSans'
+        fontFamily: 'NotoSans',
+        width: '70%'
     },
     schedule: {
         fontSize: '14@s',

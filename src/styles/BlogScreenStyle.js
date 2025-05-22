@@ -22,7 +22,7 @@ const styles = ScaledSheet.create({
         zIndex: 1000,
         top: '30@msr',
         left: '30@msr'
-    }, 
+    },
     title: {
         position: 'absolute',
         zIndex: 1000,
@@ -73,7 +73,7 @@ const styles = ScaledSheet.create({
         fontSize: '14@s',
         color: 'rgba(31, 31, 31, 1)',
         fontFamily: 'NotoSans',
-        textAlign: 'center',
+        textAlign: 'left',
         marginTop: 6
     }
 });

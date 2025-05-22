@@ -17,7 +17,7 @@ function EducationMapScreen() {
     const [entity, setEntity] = useState("Юр.лицо");
     const [educationCenters, setEducationCenters] = useState([]);
     const [selectedEducationCenter, setSelectedEducationCenter] = useState(null);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const cities = [
         { name: "Алматы", slug: "almaty", latitude: 43.2220, longitude: 76.8512 },
         { name: "Астана", slug: "astana", latitude: 51.1694, longitude: 71.4491 },
@@ -30,6 +30,7 @@ function EducationMapScreen() {
         { name: "Семей", slug: "semey", latitude: 50.4119, longitude: 80.2270 },
         { name: "Атырау", slug: "atyrau", latitude: 47.1164, longitude: 51.9200 },
         { name: "Костанай", slug: "kostanay", latitude: 53.2144, longitude: 63.6246 },
+        { name: "Риддер", slug: "ridder", latitude: 50.3556, longitude: 83.5125 }
     ];
 
     const { colors, dark } = useTheme();
@@ -84,14 +85,14 @@ function EducationMapScreen() {
 
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
-            <Navbar isLogo={false} title={t("menu-list.education")}/>
+            <Navbar isLogo={false} title={t("menu-list.education")} />
             <View style={{ width: '100%', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', display: 'flex', marginTop: 64, paddingHorizontal: 24, marginBottom: 12 }}>
                 <Text style={[styles.title, { color: colors.text }]}>{t("education-screen.title")}</Text>
             </View>
-            <MapView 
+            <MapView
                 ref={mapRef} // Привязка рефа к MapView
                 style={styles.map}
-                customMapStyle={ dark && blueDarkMap }
+                customMapStyle={dark && blueDarkMap}
                 initialRegion={{
                     latitude: selectedEducationCenter ? parseFloat(selectedEducationCenter.latitude) : 43.238949,
                     longitude: selectedEducationCenter ? parseFloat(selectedEducationCenter.longitude) : 76.889709,
@@ -100,7 +101,7 @@ function EducationMapScreen() {
                 }}
             >
                 {/* Отображение маркеров для каждого учебного центра */}
-                { educationCenters && (
+                {educationCenters && (
                     <>
                         {educationCenters.map(center => (
                             <Marker
@@ -114,7 +115,7 @@ function EducationMapScreen() {
                             />
                         ))}
                     </>
-                ) }
+                )}
             </MapView>
             <View style={styles.container}>
                 <View style={[styles.field, { borderBottomColor: colors.text }]}>
@@ -122,32 +123,32 @@ function EducationMapScreen() {
                     <TouchableOpacity onPress={() => setIsOpenCities(!isOpenCities)} style={styles.fieldContainer}>
                         <Text style={[styles.input, { color: colors.text }]}>{t(`education-screen.cities.${citySlug}`)}</Text>
                         <TouchableOpacity onPress={() => setIsOpenCities(!isOpenCities)}>
-                            <MaterialIcons name={isOpenCities ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color={ colors.text } />
+                            <MaterialIcons name={isOpenCities ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color={colors.text} />
                         </TouchableOpacity>
                     </TouchableOpacity>
                     {isOpenCities && (
                         <View style={styles.cities}>
-                            { cities.map((item, index) => (
+                            {cities.map((item, index) => (
                                 <TouchableOpacity disabled={city === item.name} key={index} onPress={() => handleCity(item.name, item.slug, item.longitude, item.latitude)} style={styles.cityContainer}>
                                     <Text style={[styles.city, { color: colors.thinText }]}>{t(`education-screen.cities.${item.slug}`)}</Text>
                                 </TouchableOpacity>
-                            )) }
+                            ))}
                         </View>
                     )}
                 </View>
             </View>
-            { educationCenters && (
+            {educationCenters && (
                 <ScrollView style={{ width: '100%', paddingHorizontal: 24, flex: 1 }}>
                     {educationCenters.map((item, index) => (
-                        <EdutcationCenter selectCenter={handleCenterSelect} selectedCenter={selectedEducationCenter} key={index} data={item}/>
+                        <EdutcationCenter selectCenter={handleCenterSelect} selectedCenter={selectedEducationCenter} key={index} data={item} />
                     ))}
                 </ScrollView>
-            ) }
-            { !educationCenters && (
+            )}
+            {!educationCenters && (
                 <View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={styles.emptyListText}>{t("education-screen.empty-list")}</Text>
                 </View>
-            ) }
+            )}
         </View>
     )
 }

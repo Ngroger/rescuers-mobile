@@ -1,8 +1,7 @@
-import { View, Text, TouchableOpacity, ScrollView, Image, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image, ActivityIndicator } from 'react-native';
 import styles from '../../../styles/ActualIncidentScreenStyle';
 import { StatusBar } from 'expo-status-bar';
-import { MaterialIcons, Feather } from '@expo/vector-icons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import call from 'react-native-phone-call';
 import { useEffect, useState } from 'react';
 import UserStorage from '../../../store/UserStorage';
@@ -82,7 +81,7 @@ function ActualIncidentScreen() {
 
     if (error) {
         return (
-            <View style={{ height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
                 <Text style={{ fontSize: 20, fontFamily: 'NotoSansSemibold', color: colors.text }}>{t("journal-info-screen.error-title")}</Text>
                 <Text style={{ fontSize: 16, fontFamily: 'NotoSans', textAlign: 'center', color: colors.text }}>{t("journal-info-screen.error-subtitle")}</Text>
             </View>
@@ -90,7 +89,7 @@ function ActualIncidentScreen() {
     }
 
     return (
-        <View style={styles.background}>
+        <View style={[styles.background, { backgroundColor: colors.background }]}>
             <Navbar title={t("menu-list.actual-incident")} />
             {data !== null ? (
                 <>
@@ -98,38 +97,38 @@ function ActualIncidentScreen() {
                         <View style={styles.container}>
                             <View style={styles.journalInfo}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex' }}>
-                                    <Text style={styles.numberOfJournal}>№{data?.incident_id}</Text>
+                                    <Text style={[styles.numberOfJournal, { color: colors.text }]}>№{data?.incident_id}</Text>
                                     <Text style={styles.currentStatus}>({data?.type})</Text>
                                 </View>
-                                <Text style={styles.text}>{formatDate(data?.created_at)}</Text>
+                                <Text style={[styles.text, { color: colors.text }]}>{formatDate(data?.created_at)}</Text>
                             </View>
                             <View style={[styles.journalInfo, { marginVertical: 4 }]}>
-                                <Text style={styles.status}>{data?.status}</Text>
+                                <Text style={[styles.status, { color: colors.thinText }]}>{data?.status}</Text>
                                 {/* <Text style={styles.text}>2 (км)</Text> */}
                             </View>
                             <View style={styles.profile}>
                                 <Image source={{ uri: `https://spasateli.kz/api/user/avatar/${data?.user_photo}` }} style={styles.photoProfile} />
                                 <View style={{ marginLeft: 6 }}>
-                                    <Text style={styles.fullname}>{data?.user_name} {data?.user_surname}</Text>
-                                    <Text style={styles.number}>{data?.user_phone}</Text>
+                                    <Text style={[styles.fullname, { color: colors.text }]}>{data?.user_name} {data?.user_surname}</Text>
+                                    <Text style={[styles.number, { color: colors.thinText }]}>{data?.user_phone}</Text>
                                 </View>
                             </View>
-                            <View style={styles.field}>
-                                <Text style={styles.fieldTitle}>{t("journal-info-screen.type-of-incident")}</Text>
+                            <View style={[styles.field, { borderBottomColor: colors.thinText }]}>
+                                <Text style={[styles.fieldTitle, { color: colors.text }]}>{t("journal-info-screen.type-of-incident")}</Text>
                                 <View style={styles.fieldContainer}>
-                                    <Text style={styles.input}>{data?.category}</Text>
+                                    <Text style={[styles.input, { color: colors.thinText }]}>{data?.category}</Text>
                                 </View>
                             </View>
-                            <View style={styles.field}>
-                                <Text style={styles.fieldTitle}>{t("journal-info-screen.geolocation")}</Text>
+                            <View style={[styles.field, { borderBottomColor: colors.thinText }]}>
+                                <Text style={[styles.fieldTitle, { color: colors.text }]}>{t("journal-info-screen.geolocation")}</Text>
                                 <View style={styles.fieldContainer}>
-                                    <Text style={styles.input}>{data?.location}</Text>
+                                    <Text style={[styles.input, { color: colors.thinText }]}>{data?.location}</Text>
                                 </View>
                             </View>
-                            <View style={styles.field}>
-                                <Text style={styles.fieldTitle}>{t("journal-info-screen.description")}</Text>
+                            <View style={[styles.field, { borderBottomColor: colors.thinText }]}>
+                                <Text style={[styles.fieldTitle, { color: colors.text }]}>{t("journal-info-screen.description")}</Text>
                                 <View style={styles.fieldContainer}>
-                                    <Text style={styles.input}>{data?.description}</Text>
+                                    <Text style={[styles.input, { color: colors.thinText }]}>{data?.description}</Text>
                                 </View>
                             </View>
                         </View>
@@ -140,6 +139,9 @@ function ActualIncidentScreen() {
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate("ReasonScreen", { incident_id: data.incident_id })} style={[styles.button, { backgroundColor: '#7D8F9D' }]}>
                             <Text style={styles.buttonText}>{t("journal-info-screen.cancel")}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("MapIncidents")} style={[styles.button, { backgroundColor: '#7D8F9D' }]}>
+                            <Text style={styles.buttonText}>{t("journal-info-screen.map")}</Text>
                         </TouchableOpacity>
                     </View>
                 </>

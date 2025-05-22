@@ -39,7 +39,7 @@ const styles = ScaledSheet.create({
         width: '70&'
     },
     filters: {
-        paddingVertical: '12@msr'
+        paddingVertical: '8@msr'
     },
     filter: {
         fontSize: '18@s',
@@ -49,7 +49,7 @@ const styles = ScaledSheet.create({
     blog: {
         display: 'flex',
         flexDirection: 'row',
-        paddingVertical: '6@msr'
+        paddingVertical: '8@msr'
     },
     blogImage: {
         width: '70@s',
@@ -59,7 +59,8 @@ const styles = ScaledSheet.create({
         resizeMode: 'cover'
     },
     blogInfo: {
-        marginLeft: '12@msr'
+        marginLeft: '12@msr',
+        justifyContent: 'space-between'
     },
     blogTitle: {
         fontSize: '16@s',

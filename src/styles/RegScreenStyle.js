@@ -3,7 +3,7 @@ import { ScaledSheet } from "react-native-size-matters";
 const styles = ScaledSheet.create({
     navbar: {
         width: '100%',
-        height: '120@vs',
+        height: '80@vs',
         position: 'absolute',
         zIndex: -100,
         top: 0
@@ -45,7 +45,7 @@ const styles = ScaledSheet.create({
         width: '100%',
         borderBottomColor: 'rgba(31, 31, 31, 0.3)',
         borderBottomWidth: 1,
-        paddingVertical: '12@msr'
+        paddingVertical: '8@msr'
     },
     fieldTitle: {
         fontSize: '14@s',
@@ -81,11 +81,11 @@ const styles = ScaledSheet.create({
     },
     footer: {
         width: '100%',
-        height: '120@vs',
+        height: '80@vs',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        zIndex: -1000,
+        zIndex: -10,
         bottom: 0
     },
     checkBox: {

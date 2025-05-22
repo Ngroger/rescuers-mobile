@@ -1,11 +1,16 @@
 {
   "expo": {
     "name": "Спасатели",
-    "slug": "rescuers",
-    "version": "1.0.0",
+    "slug": "rescuersappapp",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -19,7 +24,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#E13737"
       },
-      "package": "com.bogdandev3444456.rescuers",
+      "permissions": [
+        "CAMERA"
+      ],
+      "versionCode": 4,
+      "package": "com.bogdandev3444456.rescuersappapp",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyAoeJsYR20gUXEXBtXDM49xoNYByvFAbZg"

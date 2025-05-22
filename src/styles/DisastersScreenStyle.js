@@ -24,7 +24,7 @@ const styles = ScaledSheet.create({
     disaster: {
         display: 'flex',
         flexDirection: 'row',
-        paddingVertical: '6@msr'
+        paddingVertical: '8@msr'
     },
     disasterImage: {
         width: '70@s',

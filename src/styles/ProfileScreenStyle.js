@@ -84,10 +84,10 @@ const styles = ScaledSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         display: 'flex',
-        marginVertical: '6@msr'
+        marginVertical: '3@msr'
     },
     buttonText: {
-        fontSize: '16@s',
+        fontSize: '14@s',
         color: 'rgba(31, 31, 31, 1)',
         fontFamily: 'NotoSans',
     },
@@ -97,7 +97,7 @@ const styles = ScaledSheet.create({
         marginBottom: 12
     },
     infoTitle: {
-        fontSize: '20@s',
+        fontSize: '18@s',
         fontFamily: 'NotoSans'
     }
 });

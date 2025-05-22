@@ -25,7 +25,7 @@
             "cat2": "БOl in the heart",
             "cat3": "Accidents with victims",
             "cat4": "Arm/leg injury",
-            "cat5": "Other" 
+            "cat5": "Other"
         },
         "address-title": "Address",
         "address-placeholder": "Enter the address",
@@ -62,7 +62,8 @@
             "usty-kamenogorsk": "Ust-Kamenogorsk",
             "semey": "Semey",
             "atyrau": "Atyrau",
-            "kostanay": "Atyrau"
+            "kostanay": "Atyrau",
+            "ridder": "Ridder"
         }
     },
     "forum-screen": {
@@ -119,8 +120,10 @@
         "search-animal": "Finding a pet",
         "information": "Information",
         "finding": "Finding",
-        "info": "Info.",
-        "write-message-button": "Write"
+        "info": "Information",
+        "write-message-button": "Inform",
+        "no-title": "No missing persons found",
+        "no-subtitle": "A list of all missed people and animals will be displayed here"
     },
     "add-missed-screen": {
         "title": "Report a missing person",
@@ -146,11 +149,19 @@
         "achievments": "Accomplishments",
         "parnters": "Partners",
         "contacts": "Contacts",
-        "change-language": "Contacts",
+        "change-language": "Change language",
         "notifications": "Notification settings",
         "reference": "Synopsis",
         "about-programm": "About the program",
-        "faq": "Frequently Asked Questions"
+        "faq": "Frequently Asked Questions",
+        "offer-agreement": "Offer Agreement",
+        "usage-policy": "Usage Policy",
+        "rescuer-code": "Rescuer's Code",
+        "titles": {
+            "profile": "Profile",
+            "settings": "Settings",
+            "information": "Information"
+        }
     },
     "profile-settings": {
         "title": "Profile settings",
@@ -160,7 +171,8 @@
         "name": "Name",
         "surname": "Surname",
         "phone": "Phone number",
-        "password": "Password"
+        "password": "Password",
+        "photo-updates": "Profile photo updated"
     },
     "journal-screen": {
         "categories": {
@@ -181,7 +193,9 @@
         "cancel": "Refuse",
         "map": "View on the map",
         "no-incident-title": "You don't have a selected incident yet",
-        "no-incident-subtitle": "The incident that you responded to will be displayed here."
+        "no-incident-subtitle": "The incident that you responded to will be displayed here.",
+        "error-title": "There were unforeseen problems",
+        "error-subtitle": "Please try again later"
     },
     "achievments": {
         "golded-star": "Gold Star Lifeguard",
@@ -215,6 +229,8 @@
         "four-answer": "You will receive an in-app notification as soon as your help is accepted. You will also be able to keep track of the status of your proposals in the 'Journal' section.",
         "fifth-question": "What types of incidents can I report through the app?",
         "fifth-answer": "You can report transportation accidents, fires, drownings, medical emergencies and other incidents that require immediate assistance.",
+        "sixth-question": "How can I report technical errors in the mobile application?",
+        "sixth-answer": "You can send any technical problems you notice to the chat with Technical Support or to email: Info@batyssp.kz. You can also leave your feedback about it. We listen to every voice of our users",
         "tech-support": "Write to tech support"
     },
     "contacts-screen": {
@@ -234,8 +250,8 @@
     "my-status-screen": {
         "title": "My status",
         "chooise-status": "My status",
-        "off-shift": "Off-shift",
-        "on-shift": "On the shift.",
+        "off-shift": "Off shift",
+        "on-shift": "On the shif",
         "rescuers-on-duty": "On the shift.",
         "on-duty": "on duty",
         "count-incidents": "Number of incidents reported over the past 24 hours",
@@ -302,7 +318,8 @@
         "password-placeholder": "Enter your password",
         "login-button": "Sign in",
         "account": "Are you missing an account?",
-        "create-button": "Create"
+        "create-button": "Create",
+        "pass-recovery": "Forgot your password?"
     },
     "reg-screen": {
         "eyewitness": "Eyewitness",
@@ -323,5 +340,82 @@
         "reg-button": "Sign up",
         "certificate": "Certificate",
         "certificate-placeholder": "Upload the certificate"
+    },
+    "recovery-screen": {
+        "send-mail": {
+            "title": "Forgot your password?",
+            "description": "Enter the email address that you specified during registration.",
+            "placeholder": "Enter your email address",
+            "user-not-found": "The user was not found"
+        },
+        "verify-code": {
+            "title": "Password Recovery",
+            "description": "Enter the unique six-digit code received in your mailbox",
+            "invalid-code": "Incorrect code"
+        },
+        "password-step": {
+            "title": "New password",
+            "description": "Creating a new unique password",
+            "pass-title": "Password",
+            "pass-placeholder": "Enter the password",
+            "confrim-pass-title": "Confirm the password",
+            "confrim-pass-placeholder": "Enter the password again",
+            "passwords-not-valid": "Passwords don't match",
+            "passowrd-must-be-more": "The password must be over 8 characters long"
+        },
+        "next-button": "Further",
+        "save-button": "Save",
+        "alert-title": "Message",
+        "alert-body": "The password has been successfully changed. You can return to authorization"
+    },
+    "success-finished-modal": {
+        "title": "Completed!",
+        "subtitle": "The incident has been successfully completed"
+    },
+    "offer-agreement-screen": {
+        "info-1": "1. General Provisions",
+        "info-text-1": "1.1. This document is an official offer (hereinafter referred to as the 'Offer') for the provision of services through the mobile application 'Rescuer', which acts as an aggregator for connecting witnesses of incidents with volunteer rescuers.<br/>1.2. Acceptance of this Offer is deemed to be registration and use of the mobile application. Acceptance of the Offer means full and unconditional consent to the terms of this agreement.<br/>1.3. The mobile application '[application name]' provides a platform for interaction between witnesses of incidents and volunteer rescuers but is not responsible for the results of the assistance provided by volunteer rescuers.",
+        "info-2": "2. Terms and Definitions",
+        "info-text-2": "2.1. *Application* – the mobile application '[application name]', which provides a platform for interaction between witnesses of incidents and volunteer rescuers.<br/>2.2. *Witness* – an individual using the Application to call a volunteer rescuer in case of an incident.<br/>2.3. *Volunteer Rescuer* – a registered user of the Application, ready to provide first aid in emergency situations.<br/>2.4. *Incident* – any situation that requires first aid, which the witness reports through the Application.",
+        "info-3": "3. Subject of the Agreement",
+        "info-text-3": "3.1. This Offer regulates the relations between the operator of the Application, the witness, and the volunteer rescuer in the framework of using the Application for the exchange of information about incidents and providing first aid.<br/>3.2. The operator of the Application provides an information platform for organizing interaction between witnesses and volunteer rescuers.<br/>3.3. The operator of the Application is not responsible for the accuracy of the information provided by the witness and for the actions of the volunteer rescuer.",
+        "info-4": "4. Rights and Obligations of the Parties",
+        "info-text-4": "4.1. The operator of the Application undertakes to:<br/>- Ensure 24/7 access to the Application for witnesses and volunteer rescuers.<br/>- Provide technical support for the operation of the Application.<br/>4.2. *Witness* undertakes to:<br/>- Report only real incidents through the Application.<br/>- Provide accurate information about the incident.<br/>4.3. *Volunteer Rescuer* undertakes to:<br/>- Respond to witnesses' requests within their abilities and skills.<br/>- Act in accordance with the legislation of the Republic of Kazakhstan and the rules of providing first aid.<br/>4.4. The operator of the Application is not responsible for the quality of first aid provided by the volunteer rescuer or the consequences of their actions.",
+        "info-5": "5. Liability of the Parties",
+        "info-text-5": "5.1. The operator of the Application is not liable for:<br/>- Any consequences arising from the interaction between the witness and the volunteer rescuer.<br/>- The accuracy of the information provided by the witness.<br/>5.2. The witness and the volunteer rescuer assume all risks associated with the use of the Application for organizing the provision of first aid.",
+        "info-6": "6. Other Terms",
+        "info-text-6": "6.1. This agreement comes into force upon acceptance of the Offer and is valid for the entire period of use of the Application.<br/>6.2. The operator of the Application reserves the right to make changes to the terms of the Offer, notifying users of the Application.<br/>6.3. All disputes arising in connection with this agreement are resolved through negotiations. In the event of an inability to settle the dispute, it shall be considered in accordance with the current legislation of the Republic of Kazakhstan.",
+        "info-7": "7. Contact Information",
+        "info-text-7": "Operator of the Application:<br/>LLP 'Batys Service Pro'<br/>Kazakhstan, Almaty, Kazybek Bi Street, 65, Office 720<br/>+77025111511"
+    },
+    "usage-policy-screen": {
+        "info-1": "1. General Provisions",
+        "info-text-1": "1.1. This Policy establishes the rules for the use of the mobile application 'Rescuer' (hereinafter referred to as the 'Application'), intended for interaction between incident witnesses and volunteer rescuers.<br/>1.2. The purpose of the Application is the prompt transmission of information about incidents from witnesses to volunteer rescuers for providing first aid until emergency services arrive.<br/>1.3. The users of the Application are two types of individuals:<br/>• Witnesses – individuals reporting incidents and needing assistance from volunteer rescuers.<br/>• Volunteer rescuers – individuals registered in the Application to provide assistance in emergency situations.",
+        "info-2": "2. Application Usage",
+        "info-text-2": "2.1. To start using the Application, the user must register by providing their contact details and agreeing to the terms of use.<br/>2.2. Witnesses:<br/>• Must provide accurate information about the incident (location, nature of the incident, etc.).<br/>• Must follow safety rules and avoid endangering themselves or others.<br/>• Should not misuse calls to rescuers for false or minor incidents.<br/>2.3. Volunteer rescuers:<br/>• Register by confirming their qualifications and agreeing to the Rescuer's Code.<br/>• Must respond to calls only in situations where they can provide assistance.<br/>• Are responsible for adhering to laws and first aid regulations while performing their duties.<br/>2.4. The Application Operator is not responsible for the actions of volunteer rescuers and does not intervene in the assistance process. The Application is solely an informational platform.",
+        "info-3": "3. Interaction Procedure",
+        "info-text-3": "3.1. Upon discovering an incident, the witness must:<br/>• Assess the situation and, if possible, remove the threat to themselves and others.<br/>• Open the Application and select the 'Call Rescuer' function.<br/>• Enter accurate data about the incident (location, description of the incident).<br/>• Wait for confirmation from the nearest rescuer.<br/>3.2. The volunteer rescuer receiving the signal must:<br/>• Confirm readiness to provide assistance.<br/>• Arrive at the scene of the incident as quickly as possible.<br/>• Provide first aid according to standards and recommendations.",
+        "info-4": "4. User Responsibility",
+        "info-text-4": "4.1. Witnesses are responsible for the accuracy of the information provided about the incident.<br/>4.2. Volunteer rescuers must provide assistance within their competence while following all safety measures.<br/>4.3. The Application is not responsible for the quality of assistance or the actions of users.",
+        "info-5": "5. Privacy and Data Protection",
+        "info-text-5": "5.1. All data entered by users in the Application is processed in accordance with the Privacy Policy and is used exclusively to ensure the operation of the Application.<br/>5.2. The Application Operator undertakes not to transfer users' personal data to third parties without their consent, except in cases provided by law.",
+        "info-6": "6. Policy Changes",
+        "info-text-6": "6.1. The Application Operator reserves the right to change the terms of the Policy, notifying users through the Application.<br/>6.2. The new version of the Policy comes into force from the moment it is published in the Application.",
+        "info-7": "7. Contact Information",
+        "info-text-7": "LLP 'Batys Service Pro'<br/>Kazakhstan, Almaty, Kazibek Bi Street, 65, office 720<br/>+77025111511"
+    },
+    "rescuer-code-screen": {
+        "info-1": "1. General Provisions",
+        "info-text-1": "1.1. This Code is developed in accordance with the legislation of the Republic of Kazakhstan and regulates the activities of voluntary rescuers registered in the 'Rescuer' application (hereinafter referred to as the 'Application').<br/>1.2. A voluntary rescuer (hereinafter referred to as the 'Rescuer') is a person who voluntarily provides first aid to victims in emergency situations until the arrival of professional emergency services.<br/>1.3. The Code establishes ethical and legal standards that must be observed by Rescuers when providing assistance within the framework of the Application.",
+        "info-2": "2. Basic Principles of the Rescuer's Work",
+        "info-text-2": "2.1. Legality. The activities of the Rescuer must comply with the current legislation of the Republic of Kazakhstan, including the rules on civil protection and first aid.<br/>2.2. Voluntariness. The rescuer provides assistance on a voluntary basis, without coercion and obligations to third parties, except in situations where such an obligation is imposed by law.<br/>2.3. Confidentiality. The rescuer undertakes to keep the personal data of the victims and information about the incident confidential, except when disclosure is required by law or to provide assistance.<br/>2.4. Benevolence and Respect. The rescuer must respect the dignity of the victim, act correctly and tactfully in any situation, avoiding rudeness and aggression.<br/>2.5. Competence. The rescuer provides assistance within the limits of their qualification and should not perform actions requiring special medical knowledge if they do not possess it.",
+        "info-3": "3. Rights and Obligations of the Rescuer",
+        "info-text-3": "3.1. Rescuer's rights:<br/>Refuse to respond to a call if the assistance may endanger their life or health.<br/>If necessary, transfer information about the incident to professional emergency services to ensure more effective assistance.<br/>Seek legal protection in case of claims or accusations related to providing assistance.<br/>3.2. Rescuer's obligations:<br/>Provide assistance within their competence until the arrival of professional rescue services.<br/>Inform the victim (if possible) of their actions and take their wishes into account when providing assistance.<br/>Observe all precautions to prevent threats to their own safety and the safety of the victim.<br/>Maintain law and order at the scene and assist emergency services if necessary.",
+        "info-4": "4. Responsibility of the Rescuer",
+        "info-text-4": "4.1. The rescuer is responsible for the consequences of their actions or inactions in providing first aid in accordance with the legislation of the Republic of Kazakhstan.<br/>4.2. The rescuer cannot be held liable for providing assistance if their actions were performed with reasonable care and consideration of the circumstances of the incident (except in cases of gross negligence or intentional harm).<br/>4.3. In case of violation of the Code, the rescuer may be excluded from the Application system with notification to the relevant authorities if necessary.",
+        "info-5": "5. Ethics and Behavior of the Rescuer",
+        "info-text-5": "5.1. The rescuer must remain calm and act quickly but consciously, avoiding panic and unnecessary emotional reactions.<br/>5.2. Interaction with victims and witnesses should be based on principles of trust, mutual respect, and support.<br/>5.3. The rescuer is not entitled to demand compensation for providing assistance and should avoid any actions that may be interpreted as self-serving or for personal gain.",
+        "info-6": "6. Final Provisions",
+        "info-text-6": "6.1. All rescuers must undergo mandatory training in first aid and familiarize themselves with the legislative norms of the Republic of Kazakhstan in this area.<br/>6.2. In case of changes in legislation or regulatory acts of the Republic of Kazakhstan requiring a revision of the provisions of this Code, the Application operator will notify rescuers of the changes and offer updated conditions for continuing their activities in the system.<br/>6.3. This Code enters into force upon the registration of the Rescuer in the Application and is mandatory for execution throughout the use of the Application."
     }
 }

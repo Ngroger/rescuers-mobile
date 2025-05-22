@@ -53,6 +53,8 @@ function JournalScreen() {
     const getFilteredJournal = () => {
         if (filter === "Все") {
             return journal;
+        } else if (filter === 'Завершенный') {
+            return journal.filter(item => item.status === filter);
         }
         return journal.filter(item => item.type === filter);
     };
@@ -70,7 +72,7 @@ function JournalScreen() {
                     <TouchableOpacity style={filter !== 'Актуальный' && { opacity: 0.5 }} onPress={() => setFilter("Актуальный")}>
                         <Text style={[styles.filter, { marginLeft: 12, color: colors.text }]}>{t("journal-screen.categories.actual")}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={filter !== 'Тест' && { opacity: 0.5 }} onPress={() => setFilter("Тест")}>
+                    <TouchableOpacity style={filter !== 'Тестовый' && { opacity: 0.5 }} onPress={() => setFilter("Тестовый")}>
                         <Text style={[styles.filter, { marginLeft: 12, color: colors.text }]}>{t("journal-screen.categories.testing")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={filter !== 'Завершенный' && { opacity: 0.5 }} onPress={() => setFilter("Завершенный")}>

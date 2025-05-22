@@ -8,7 +8,7 @@ import { useTheme } from '../../themes/ThemeProvider';
 
 function ContactScreen() {
     const navigation = useNavigation();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const { colors } = useTheme()
     return (
         <View style={[styles.background, { backgroundColor: colors.background }]}>
@@ -22,25 +22,17 @@ function ContactScreen() {
             </View>
             <View style={styles.container}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex' }}>
-                    <Text style={[styles.address, { color:colors.text }]}>Улица Абая, дом 123</Text>
+                    <Text style={[styles.address, { color: colors.text }]}>Алматы, Казыбек би, дом 65, офис 720</Text>
                     <FontAwesome style={{ marginLeft: 6 }} name="map-marker" size={24} color="rgba(125, 143, 157, 1)" />
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', marginVertical: 4 }}>
-                    <Text style={[styles.number, { color: colors.thinText }]}>+7 (777) 777 7777</Text>
+                    <Text style={[styles.number, { color: colors.thinText }]}>+8 (702) 511 1511</Text>
                     <Text style={[styles.company, { color: colors.thinText }]}>{t("contacts-screen.urgent-help")}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', marginVertical: 4 }}>
-                    <Text style={[styles.number, { color: colors.thinText }]}>+7 (777) 777 7777</Text>
-                    <Text style={[styles.company, { color: colors.thinText }]}>{t("contacts-screen.tech-support")}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', marginVertical: 4 }}>
-                    <Text style={[styles.number, { color: colors.thinText }]}>+7 (777) 777 7777</Text>
-                    <Text style={[styles.company, { color: colors.thinText }]}>{t("contacts-screen.coord-center")}</Text>
-                </View>
-                <Text style={[styles.mail, { color: colors.text }]}>example1234@gmail.com</Text>
-                <Text style={styles.site}>https://example.com</Text>
+                <Text style={[styles.mail, { color: colors.text }]}>Info@batyssp.kz</Text>
+                <Text style={styles.site}>https://batyssp.kz/</Text>
             </View>
-            <View style={styles.mediaContainer}>
+            {/* <View style={styles.mediaContainer}>
                 <TouchableOpacity style={styles.media}>
                     <FontAwesome name="whatsapp" size={24} color="rgba(255, 255, 255, 1)" />
                 </TouchableOpacity>
@@ -53,8 +45,8 @@ function ContactScreen() {
                 <TouchableOpacity style={styles.media}>
                     <FontAwesome name="instagram" size={24} color="rgba(255, 255, 255, 1)" />
                 </TouchableOpacity>
-            </View>
-            <StatusBar translucent={true} backgroundColor='transparent'/>
+            </View> */}
+            <StatusBar translucent={true} backgroundColor='transparent' />
         </View>
     )
 };

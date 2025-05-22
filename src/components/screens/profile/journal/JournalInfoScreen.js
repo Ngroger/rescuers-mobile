@@ -8,19 +8,21 @@ import { useEffect, useState } from 'react';
 import UserStorage from '../../../../store/UserStorage';
 import { useTranslation } from 'react-i18next';
 import * as Location from 'expo-location';
+import SuccessFinishedModal from '../../../ux/modals/SuccessFinishedModal';
 
 function JournalInfoScreen() {
     const navigation = useNavigation();
     const route = useRoute();
     const { data, isRescuers } = route.params;
     const [userId, setUserId] = useState();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [isExistActual, setIsExistActual] = useState(null);
     const [coordinates, setCoordinates] = useState({
         latitude: 0,
         longitude: 0
     });
-    
+    const [isFinishedIncident, setIsFinishedIncident] = useState(false);
+
     useEffect(() => {
         fetchUserId();
         console.log("data: ", data)
@@ -38,13 +40,13 @@ function JournalInfoScreen() {
             if (status !== 'granted') {
                 return;
             }
-    
+
             let location = await Location.getCurrentPositionAsync({});
-            
+
             // Проверяем, отличаются ли новые координаты от текущих координат в состоянии
             if (data.my_latitude !== location.coords.latitude || data.my_longitude !== location.coords.longitude) {
                 setCoordinates({
-                    latitude:  location.coords.latitude,
+                    latitude: location.coords.latitude,
                     longitude: location.coords.longitude
                 });
             }
@@ -83,7 +85,7 @@ function JournalInfoScreen() {
             prompt: false, // Optional boolean property. Determines if the user should be prompted prior to the call 
             skipCanOpen: true // Skip the canOpenURL check
         }
-        
+
         call(args).catch(console.error);
     }
 
@@ -108,7 +110,30 @@ function JournalInfoScreen() {
             console.log("feedback error: ", error);
         }
     };
-    
+
+    const finishMyIncident = async () => {
+        try {
+            const response = await fetch('https://spasateli.kz/api/user/my-incident/finish', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    incident_id: data.incident_id,
+                    user_id: userId
+                })
+            });
+
+            const responseJson = await response.json();
+
+            if (responseJson.success) {
+                setIsFinishedIncident(true);
+            }
+        } catch (error) {
+            console.log('finish my incident error: ', error);
+        }
+    }
+
     return (
         <View style={styles.background}>
             <View style={styles.navbar}>
@@ -133,7 +158,7 @@ function JournalInfoScreen() {
                         {/* <Text style={styles.text}>2 (км)</Text> */}
                     </View>
                     <View style={styles.profile}>
-                        <Image source={{ uri: `https://spasateli.kz/api/user/avatar/${data.photo}` }}  style={styles.photoProfile}/>
+                        <Image source={{ uri: `https://spasateli.kz/api/user/avatar/${data.photo}` }} style={styles.photoProfile} />
                         <View style={{ marginLeft: 6 }}>
                             <Text style={styles.fullname}>{data.name} {data.surname}</Text>
                             <Text style={styles.number}>{data.phone}</Text>
@@ -160,36 +185,47 @@ function JournalInfoScreen() {
                 </View>
             </ScrollView>
             <View style={styles.buttonContainer}>
-                { isRescuers ? (
+                {isRescuers ? (
                     <>
-                        <TouchableOpacity onPress={() => makeCall()} style={styles.button}>
-                            <Text style={styles.buttonText}>{t("journal-info-screen.call-button")}</Text>
-                        </TouchableOpacity>
-                        { userId == data.rescuers_id ? (
-                            <TouchableOpacity onPress={() => navigation.navigate("ReasonScreen", { incident_id: data.incident_id })} style={[styles.button, { backgroundColor: '#7D8F9D' }]}>
-                                <Text style={styles.buttonText}>{t("journal-info-screen.cancel")}</Text>
-                            </TouchableOpacity>
-                        ) : (
+                        {data.status !== 'Завершенный' && (
                             <>
-                                { isExistActual ? (
-                                    <View style={[styles.button, { backgroundColor: '#7D8F9D' }]}>
-                                        <Text style={styles.buttonText}>{t("journal-info-screen.feedback-exist")}</Text>
-                                    </View>
-                                ) : (
-                                    <TouchableOpacity onPress={() => feedback()} style={styles.button}>
-                                        <Text style={styles.buttonText}>{t("journal-info-screen.send-feedback")}</Text>
+                                <TouchableOpacity onPress={() => makeCall()} style={styles.button}>
+                                    <Text style={styles.buttonText}>{t("journal-info-screen.call-button")}</Text>
+                                </TouchableOpacity>
+                                {userId == data.rescuers_id ? (
+                                    <TouchableOpacity onPress={() => navigation.navigate("ReasonScreen", { incident_id: data.incident_id })} style={[styles.button, { backgroundColor: '#7D8F9D' }]}>
+                                        <Text style={styles.buttonText}>{t("journal-info-screen.cancel")}</Text>
                                     </TouchableOpacity>
-                                ) }
+                                ) : (
+                                    <>
+                                        {isExistActual ? (
+                                            <View style={[styles.button, { backgroundColor: '#7D8F9D' }]}>
+                                                <Text style={styles.buttonText}>{t("journal-info-screen.feedback-exist")}</Text>
+                                            </View>
+                                        ) : (
+                                            <TouchableOpacity onPress={() => feedback()} style={styles.button}>
+                                                <Text style={styles.buttonText}>{t("journal-info-screen.send-feedback")}</Text>
+                                            </TouchableOpacity>
+                                        )}
+                                    </>
+                                )}
                             </>
-                        ) }
+                        )}
                     </>
                 ) : (
-                    <TouchableOpacity onPress={() => navigation.navigate("RouteMap", { longitude: data.longitude, latitude: data.latitude, incidentId: data.incident_id, userId: userId })} style={styles.button}>
-                        <Text style={styles.buttonText}>Посмотреть на карте</Text>
-                    </TouchableOpacity>
-                ) }
+                    <>
+                        <TouchableOpacity onPress={() => navigation.navigate("RouteMap", { longitude: data.longitude, latitude: data.latitude, incidentId: data.incident_id, userId: userId })} style={styles.button}>
+                            <Text style={styles.buttonText}>Посмотреть на карте</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => finishMyIncident()} style={[styles.button, { backgroundColor: '#7D8F9D' }]}>
+                            <Text style={styles.buttonText}>Завершить инцидент</Text>
+                        </TouchableOpacity>
+                    </>
+
+                )}
             </View>
-            <StatusBar translucent={true} backgroundColor='transparent'/>
+            <StatusBar translucent={true} backgroundColor='transparent' />
+            <SuccessFinishedModal incidentId={data.incident_id} modalVisible={isFinishedIncident} closeModal={() => setIsFinishedIncident(false)} />
         </View>
     )
 };

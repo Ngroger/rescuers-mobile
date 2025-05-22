@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import YoutubePlayer from "react-native-youtube-iframe";
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../../themes/ThemeProvider';
 
@@ -13,20 +13,27 @@ function BlogScreen() {
     const navigation = useNavigation();
     const route = useRoute();
     const { data } = route.params;
-    const [playing, setPlaying] = useState(false);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const { colors } = useTheme();
 
-    const onStateChange = useCallback((state) => {
-        if (state === "ended") {
-            setPlaying(false);
-            Alert.alert("video has finished playing!");
+    console.log("data: ", data.blog_id);
+
+    useEffect(() => {
+        fetchUpdateViews();
+    }, []);
+
+    const fetchUpdateViews = async () => {
+        try {
+            const response = await fetch(`https://spasateli.kz/api/user/blog/update-views/${data.blog_id}`, {
+                method: 'GET'
+            });
+            const responseJson = await response.json();
+
+            console.log("responseJson: ", responseJson)
+        } catch (error) {
+            console.log('fetch update views: ', error);
         }
-    }, []);
-    
-    const togglePlaying = useCallback(() => {
-            setPlaying((prev) => !prev);
-    }, []);
+    }
 
     return (
         <View style={styles.background}>
@@ -37,19 +44,18 @@ function BlogScreen() {
                 <Text style={styles.goBackText}>{t("blog-screen.back-button")}</Text>
             </TouchableOpacity>
             <Text style={styles.title}>{data.first_title}</Text>
-            <Image source={{ uri: `https://spasateli.kz/api/user/blog/preview-image/${data.background_image}` }}  style={styles.backgroundImage} />
+            <Image source={{ uri: `https://spasateli.kz/api/user/blog/preview-image/${data.background_image}` }} style={styles.backgroundImage} />
             <View style={[styles.container, { backgroundColor: colors.background }]}>
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <Text style={[styles.blogTitle, { color: colors.text }]}>{data.second_title}</Text>
-                    {/* <View style={{ borderRadius: 100 }}>
+                    <View style={{ borderRadius: 100 }}>
                         <YoutubePlayer
-                            height={300}
-                            play={playing}
+                            height={200}
+                            play={true}
                             style={styles.videoContainer}
                             videoId={data.video_url}
-                            onChangeState={onStateChange}
                         />
-                    </View> */}
+                    </View>
                     <Text style={[styles.blogDescription, { color: colors.text }]}>{data.description}</Text>
                 </ScrollView>
             </View>

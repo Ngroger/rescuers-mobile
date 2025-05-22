@@ -1,6 +1,6 @@
 import { ScaledSheet } from "react-native-size-matters";
 
-const styles = ScaledSheet.create({
+const styles = (colors) = ScaledSheet.create({
     background: {
         width: '100%',
         height: '100%',
@@ -12,7 +12,7 @@ const styles = ScaledSheet.create({
         marginTop: 64
     },
     filters: {
-        paddingVertical: '12@msr'
+        paddingVertical: '8@msr'
     },
     filter: {
         fontSize: '18@s',
@@ -31,7 +31,7 @@ const styles = ScaledSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        
+
         elevation: 5,
         marginVertical: '6@msr'
     },
@@ -41,7 +41,7 @@ const styles = ScaledSheet.create({
         display: 'flex',
         width: '100%',
         justifyContent: 'space-between'
-    },  
+    },
     address: {
         fontSize: '16@s',
         color: 'rgba(31, 31, 31, 1)',
@@ -139,7 +139,7 @@ const styles = ScaledSheet.create({
         width: '100%',
         borderBottomColor: 'rgba(31, 31, 31, 0.3)',
         borderBottomWidth: 1,
-        paddingVertical: '12@msr'
+        paddingVertical: '8@msr'
     },
     fieldTitle: {
         fontSize: '16@s',
@@ -166,7 +166,7 @@ const styles = ScaledSheet.create({
         bottom: 0
     },
     button: {
-        justifyContent :'center',
+        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(225, 55, 55, 1)',
         marginBottom: 12,

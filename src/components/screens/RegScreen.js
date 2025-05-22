@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, TextInput, Platform } from 'react-native';
+import { Text, View, TouchableOpacity, Image, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
 import styles from '../../styles/RegScreenStyle';
 import { useState, useRef, useEffect } from 'react';
 import { Feather, Ionicons, Fontisto, MaterialIcons, FontAwesome } from '@expo/vector-icons';
@@ -14,9 +14,9 @@ import { useTranslation } from 'react-i18next';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
     }),
 });
 
@@ -47,8 +47,8 @@ function RegScreen() {
 
     useEffect(() => {
         registerForPushNotificationsAsync()
-        .then(token => (setData({ ...data, expoPushToken: token }), console.log(data)))
-        .catch((error) => console.log(`${error}`));
+            .then(token => (setData({ ...data, expoPushToken: token }), console.log(data)))
+            .catch((error) => console.log(`${error}`));
 
         notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
             setNotification(notification);
@@ -65,10 +65,10 @@ function RegScreen() {
                 Notifications.removeNotificationSubscription(responseListener.current);
         };
     }, [data.expoPushToken])
-    
+
     async function registerForPushNotificationsAsync() {
         let token;
-        
+
         if (Platform.OS === 'android') {
             await Notifications.setNotificationChannelAsync('default', {
                 name: 'default',
@@ -77,7 +77,7 @@ function RegScreen() {
                 lightColor: '#FF231F7C',
             });
         }
-        
+
         if (Device.isDevice) {
             const { status: existingStatus } = await Notifications.getPermissionsAsync();
             let finalStatus = existingStatus;
@@ -93,18 +93,18 @@ function RegScreen() {
         } else {
             alert('Must use physical device for Push Notifications');
         }
-        
+
         return token;
     }
 
     async function schedulePushNotification() {
         await Notifications.scheduleNotificationAsync({
-        content: {
-            title: "Добро пожаловать",
-            body: `Вы успешно зарегистрировались`,
-            data: { data: 'goes here' },
-        },
-        trigger: { seconds: 2 },
+            content: {
+                title: "Добро пожаловать",
+                body: `Вы успешно зарегистрировались`,
+                data: { data: 'goes here' },
+            },
+            trigger: { seconds: 2 },
         });
     }
 
@@ -114,7 +114,7 @@ function RegScreen() {
             [name]: value
         }));
     }
-    
+
     const selectTypeOfAccount = (type) => {
         handleChangeInput("type", type);
         setStep(2);
@@ -225,12 +225,12 @@ function RegScreen() {
 
     return (
         <View style={styles.background}>
-            <Image style={styles.navbar} source={require('../../images/navbar.png')}/>
+            <Image style={styles.navbar} source={require('../../images/navbar.png')} />
             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.goBack}>
                 <MaterialIcons name="arrow-left" size={32} color="rgba(225, 55, 55, 1)" />
             </TouchableOpacity>
-            <View style={styles.container}>
-                { step === 1 && (
+            <KeyboardAvoidingView behavior='position' enabled={false} style={styles.container}>
+                {step === 1 && (
                     <>
                         <Text style={styles.title}>{t("auth-screen.title")}</Text>
                         <Text style={styles.description}>{t("auth-screen.subtitle")}</Text>
@@ -241,28 +241,28 @@ function RegScreen() {
                             <Text style={styles.buttonText}>{t("reg-screen.rescuer")}</Text>
                         </TouchableOpacity>
                     </>
-                ) }
-                { step === 2 && (
+                )}
+                {step === 2 && (
                     <>
                         <View style={styles.stepsContainer}>
                             <View style={styles.activeStep}>
-                                <View style={styles.activeDot}/>
+                                <View style={styles.activeDot} />
                             </View>
-                            <View style={styles.line}/>
+                            <View style={styles.line} />
                             <View style={styles.step}>
-                                <View style={styles.dot}/>
+                                <View style={styles.dot} />
                             </View>
-                            { data.type === 'Спасатель' && (
+                            {data.type === 'Спасатель' && (
                                 <>
-                                    <View style={styles.line}/>
+                                    <View style={styles.line} />
                                     <View style={styles.step}>
-                                        <View style={styles.dot}/>
+                                        <View style={styles.dot} />
                                     </View>
                                 </>
-                            ) }
+                            )}
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}>
-                            <View style={[styles.field, {  width: '48%'}]}>
+                            <View style={[styles.field, { width: '48%' }]}>
                                 <Text style={styles.fieldTitle}>{t("reg-screen.name")}</Text>
                                 <View style={styles.fieldContainer}>
                                     <TextInput
@@ -274,7 +274,7 @@ function RegScreen() {
                                     />
                                 </View>
                             </View>
-                            <View style={[styles.field, {  width: '48%'}]}>
+                            <View style={[styles.field, { width: '48%' }]}>
                                 <Text style={styles.fieldTitle}>{t("reg-screen.surname")}</Text>
                                 <View style={styles.fieldContainer}>
                                     <TextInput
@@ -317,40 +317,40 @@ function RegScreen() {
                             </View>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center', display: 'flex', paddingVertical: 12 }}>
-                            <TouchableOpacity onPress={() => setIsCheckbox(!isCheckbox)} style={ isCheckbox ? styles.activeCheckbox : styles.checkBox }>
+                            <TouchableOpacity onPress={() => setIsCheckbox(!isCheckbox)} style={isCheckbox ? styles.activeCheckbox : styles.checkBox}>
                                 <Ionicons name="checkmark" size={16} color="rgba(255, 255, 255, 1)" />
                             </TouchableOpacity>
                             <Text style={{ fontFamily: 'NotoSans', color: 'rgba(31, 31, 31, 0.3)', fontSize: 14, marginLeft: 6 }}>{t("reg-screen.agree")}</Text>
                         </View>
                         <Text style={styles.errorMessage}>{message}</Text>
-                        <TouchableOpacity disabled={!data.name || !data.surname || !data.phone || !isCheckbox} onPress={() => checkUser()} style={ !data.name || !data.surname || !data.phone || !isCheckbox ? [styles.button, { marginTop: 12, opacity: 0.5 }] : [styles.button, { marginTop: 12 }] }>
+                        <TouchableOpacity disabled={!data.name || !data.surname || !data.phone || !isCheckbox} onPress={() => checkUser()} style={!data.name || !data.surname || !data.phone || !isCheckbox ? [styles.button, { marginTop: 12, opacity: 0.5 }] : [styles.button, { marginTop: 12 }]}>
                             <Text style={styles.buttonText}>{t("reg-screen.next-button")}</Text>
                         </TouchableOpacity>
                     </>
-                ) }
-                { step === 3 && (
+                )}
+                {step === 3 && (
                     <>
                         <View style={styles.stepsContainer}>
                             <View style={styles.step}>
-                                <View style={styles.dot}/>
+                                <View style={styles.dot} />
                             </View>
-                            <View style={styles.line}/>
+                            <View style={styles.line} />
                             <View style={styles.activeStep}>
-                                <View style={styles.activeDot}/>
+                                <View style={styles.activeDot} />
                             </View>
-                            { data.type === 'Спасатель' && (
+                            {data.type === 'Спасатель' && (
                                 <>
-                                    <View style={styles.line}/>
+                                    <View style={styles.line} />
                                     <View style={styles.step}>
-                                        <View style={styles.dot}/>
+                                        <View style={styles.dot} />
                                     </View>
                                 </>
-                            ) }
+                            )}
                         </View>
                         <View style={styles.field}>
                             <Text style={styles.fieldTitle}>{t("reg-screen.password")}</Text>
                             <View style={styles.fieldContainer}>
-                                <TextInput 
+                                <TextInput
                                     name="password"
                                     value={data.password}
                                     onChangeText={(text) => handleChangeInput("password", text)}
@@ -359,50 +359,50 @@ function RegScreen() {
                                     style={[styles.input, { width: '80%' }]}
                                 />
                                 <TouchableOpacity onPress={() => setIsPasswordHidden(!isPasswordHidden)}>
-                                    <Fontisto name={ isPasswordHidden ? "locked" : "unlocked" } size={24} color="#7D8F9D" />
+                                    <Fontisto name={isPasswordHidden ? "locked" : "unlocked"} size={24} color="#7D8F9D" />
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.field}>
                             <Text style={styles.fieldTitle}>{t("reg-screen.confirm-pass")}</Text>
                             <View style={styles.fieldContainer}>
-                                <TextInput 
-                                    name="confirmPassword" 
-                                    value={data.confirmPassword} 
-                                    onChangeText={(text) => handleChangeInput("confirmPassword", text)} 
-                                    secureTextEntry={isConfirmPasswordHidden} 
+                                <TextInput
+                                    name="confirmPassword"
+                                    value={data.confirmPassword}
+                                    onChangeText={(text) => handleChangeInput("confirmPassword", text)}
+                                    secureTextEntry={isConfirmPasswordHidden}
                                     placeholder={t("reg-screen.confirm-pass-placeholder")}
                                     style={[styles.input, { width: '80%' }]}
                                 />
                                 <TouchableOpacity onPress={() => setIsConfirmPasswordConfirm(!isConfirmPasswordHidden)}>
-                                    <Fontisto name={ isConfirmPasswordHidden ? "locked" : "unlocked" } size={24} color="#7D8F9D" />
+                                    <Fontisto name={isConfirmPasswordHidden ? "locked" : "unlocked"} size={24} color="#7D8F9D" />
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <Text style={[styles.errorMessage, { paddingVertical: 12 }]}>{message}</Text>
-                        <TouchableOpacity disabled={!data.password || !data.confirmPassword} onPress={() => data.type === 'Спасатель' ? setStep(4) : reg()} style={ !data.password || !data.confirmPassword ? [styles.button, { marginTop: 0, opacity: 0.5 }] : [styles.button, { marginTop: 0 }] }>
-                            <Text style={styles.buttonText}>{ data.type === 'Спасатель' ? `${t("reg-screen.next-button")}` : `${t("reg-screen.reg-button")}` }</Text>
+                        <TouchableOpacity disabled={!data.password || !data.confirmPassword} onPress={() => data.type === 'Спасатель' ? setStep(4) : reg()} style={!data.password || !data.confirmPassword ? [styles.button, { marginTop: 0, opacity: 0.5 }] : [styles.button, { marginTop: 0 }]}>
+                            <Text style={styles.buttonText}>{data.type === 'Спасатель' ? `${t("reg-screen.next-button")}` : `${t("reg-screen.reg-button")}`}</Text>
                         </TouchableOpacity>
                     </>
-                ) }
-                { step === 4 && (
+                )}
+                {step === 4 && (
                     <>
                         <View style={styles.stepsContainer}>
                             <View style={styles.step}>
-                                <View style={styles.dot}/>
+                                <View style={styles.dot} />
                             </View>
-                            <View style={styles.line}/>
+                            <View style={styles.line} />
                             <View style={styles.dot}>
-                                <View style={styles.dot}/>
+                                <View style={styles.dot} />
                             </View>
-                            { data.type === 'Спасатель' && (
+                            {data.type === 'Спасатель' && (
                                 <>
-                                    <View style={styles.line}/>
+                                    <View style={styles.line} />
                                     <View style={styles.activeStep}>
-                                        <View style={styles.activeDot}/>
+                                        <View style={styles.activeDot} />
                                     </View>
                                 </>
-                            ) }
+                            )}
                         </View>
                         <View style={styles.fileContainer}>
                             <TouchableOpacity onPress={() => selectFile()} style={styles.fileButton}>
@@ -412,21 +412,21 @@ function RegScreen() {
                         <View style={styles.field}>
                             <Text style={styles.fieldTitle}>{t("reg-screen.certificate")}</Text>
                             <View style={styles.fieldContainer}>
-                                <Text style={[styles.input, { width: '80%' }]}>{ data.certificateName ? data.certificateName : `${t("reg-screen.certificate-placeholder")}` }</Text>
+                                <Text style={[styles.input, { width: '80%' }]}>{data.certificateName ? data.certificateName : `${t("reg-screen.certificate-placeholder")}`}</Text>
                                 <FontAwesome name="file-text-o" size={24} color="#7D8F9D" />
                             </View>
                         </View>
                         <Text style={[styles.errorMessage, { paddingVertical: 12 }]}>{message}</Text>
-                        <TouchableOpacity disabled={!data.password || !data.confirmPassword} onPress={() => reg()} style={ !data.password || !data.confirmPassword ? [styles.button, { marginTop: 0, opacity: 0.5 }] : [styles.button, { marginTop: 0 }] }>
+                        <TouchableOpacity disabled={!data.password || !data.confirmPassword} onPress={() => reg()} style={!data.password || !data.confirmPassword ? [styles.button, { marginTop: 0, opacity: 0.5 }] : [styles.button, { marginTop: 0 }]}>
                             <Text style={styles.buttonText}>{t("reg-screen.reg-button")}</Text>
                         </TouchableOpacity>
                     </>
-                ) }
-            </View>
+                )}
+            </KeyboardAvoidingView>
             <View style={styles.footer}>
-                <Image style={{ width: '100%', height: '100%' }} source={require('../../images/footer.png')}/>
+                <Image style={{ width: '100%', height: '100%' }} source={require('../../images/footer.png')} />
             </View>
-            <StatusBar translucent={true} backgroundColor='transparent'/>
+            <StatusBar translucent={true} backgroundColor='transparent' />
         </View>
     )
 };

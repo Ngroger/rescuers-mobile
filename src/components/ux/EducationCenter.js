@@ -9,11 +9,11 @@ function EdutcationCenter({ data, selectCenter, selectedCenter }) {
     const { colors } = useTheme();
 
     return (
-        <TouchableOpacity onPress={() => selectCenter(data)} style={ isSelected ? [styles.selectedEducationCenter, { backgroundColor: colors.card }] : [styles.educationCenter, { backgroundColor: colors.card }] }>
+        <TouchableOpacity onPress={() => selectCenter(data)} style={isSelected ? [styles.selectedEducationCenter, { backgroundColor: colors.card }] : [styles.educationCenter, { backgroundColor: colors.card }]}>
             <View style={styles.educationHeader}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={[styles.address, { color: colors.text }]}>{data.address}</Text>
-                    <FontAwesome name='map-marker' style={{ marginLeft: 6 }} size={24} color="rgba(125, 143, 157, 1)"/>
+                    <FontAwesome name='map-marker' style={{ marginLeft: 6 }} size={24} color="rgba(125, 143, 157, 1)" />
                 </View>
                 <Text style={[styles.schedule, { color: colors.text }]}>
                     {data.time_open.slice(0, -3)} - {data.time_close.slice(0, -3)}
@@ -28,7 +28,7 @@ function EdutcationCenter({ data, selectCenter, selectedCenter }) {
                 <View style={{ alignItems: 'flex-end' }}>
                     <Text style={[styles.mail, { color: colors.thinText }]}>{data.email}</Text>
                     <Text style={styles.site}>{data.website_link}</Text>
-                    <View style={styles.mediaContainer}>
+                    {/* <View style={styles.mediaContainer}>
                         <TouchableOpacity style={styles.media}>
                             <FontAwesome name="whatsapp" size={24} color="rgba(255, 255, 255, 1)" />
                         </TouchableOpacity>
@@ -38,7 +38,7 @@ function EdutcationCenter({ data, selectCenter, selectedCenter }) {
                         <TouchableOpacity style={[styles.media, { marginLeft: 6 }]}>
                             <FontAwesome name="instagram" size={24} color="rgba(255, 255, 255, 1)" />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
             </View>
         </TouchableOpacity>

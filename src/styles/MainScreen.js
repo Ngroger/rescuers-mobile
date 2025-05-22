@@ -77,7 +77,7 @@ const styles = ScaledSheet.create({
     },
     goBack: {
         height: '35@vs',
-        width: '35@s',
+        width: '35@vs',
         backgroundColor: 'rgba(255, 255, 255, 1)',
         borderRadius: 1000,
         justifyContent: 'center',

@@ -51,7 +51,7 @@ function ReasonScreen() {
             if (responseJson.success) {
                 navigation.goBack();
             }
-            
+
         } catch (error) {
             console.log("finishIncident: ", error)
         }
@@ -70,12 +70,12 @@ function ReasonScreen() {
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => setIsOpen(!isOpen)} style={[styles.fieldContainer, { borderBottomColor: colors.thinText, borderBottomWidth: 1 }]}>
                     <View style={{ width: '100%', flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Text style={[styles.input, { color: colors.text }]}>{ reasonSlug ? t(`reason-screen.${reasonSlug}`) : 'Выберите причину' }</Text>
+                        <Text style={[styles.input, { color: colors.text }]}>{reasonSlug ? t(`reason-screen.${reasonSlug}`) : 'Выберите причину'}</Text>
                         <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
-                            <MaterialIcons name={isOpen ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color={ colors.text } />
+                            <MaterialIcons name={isOpen ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color={colors.text} />
                         </TouchableOpacity>
                     </View>
-                    { isOpen && (
+                    {isOpen && (
                         <View>
                             <TouchableOpacity onPress={() => selectReason("Недостаток оборудования", "reason-1")} style={{ marginVertical: 2 }}>
                                 <Text style={[styles.reason, { color: colors.thinText }]}>{t("reason-screen.reason-1")}</Text>
@@ -107,8 +107,11 @@ function ReasonScreen() {
                             <TouchableOpacity onPress={() => selectReason("Заблокированный доступ к месту происшествия", "reason-10")} style={{ marginVertical: 2 }}>
                                 <Text style={[styles.reason, { color: colors.thinText }]}>{t("reason-screen.reason-10")}</Text>
                             </TouchableOpacity>
+                            <TouchableOpacity onPress={() => selectReason("Заблокированный доступ к месту происшествия", "reason-10")} style={{ marginVertical: 2 }}>
+                                <Text style={[styles.reason, { color: colors.thinText }]}>{t("reason-screen.reason-10")}</Text>
+                            </TouchableOpacity>
                         </View>
-                    ) }
+                    )}
                 </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
@@ -116,7 +119,7 @@ function ReasonScreen() {
                     <Text style={styles.buttonText}>{t("reason-screen.finish")}</Text>
                 </TouchableOpacity>
             </View>
-            <StatusBar translucent={true} backgroundColor='transparent'/>
+            <StatusBar translucent={true} backgroundColor='transparent' />
         </View>
     )
 };

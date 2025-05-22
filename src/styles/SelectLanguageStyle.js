@@ -33,7 +33,7 @@ const styles = ScaledSheet.create({
         width: '100%',
         borderBottomColor: 'rgba(31, 31, 31, 0.3)',
         borderBottomWidth: 1,
-        paddingVertical: '12@msr'
+        paddingVertical: '8@msr'
     },
     fieldTitle: {
         fontSize: '14@s',

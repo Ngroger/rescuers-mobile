@@ -48,8 +48,8 @@ const styles = ScaledSheet.create({
         display: 'flex'
     },
     photoProfile: {
-        width: '50@s',
-        height: '50@vs',
+        width: '40@s',
+        height: '40@s',
         backgroundColor: 'rgba(125, 143, 157, 1)',
         borderRadius: 1000
     },
@@ -83,7 +83,7 @@ const styles = ScaledSheet.create({
         width: '100%',
         borderBottomColor: 'rgba(31, 31, 31, 0.3)',
         borderBottomWidth: 1,
-        paddingVertical: '6@msr'
+        paddingVertical: '8@msr'
     },
     fieldTitle: {
         fontSize: '16@s',
@@ -102,6 +102,13 @@ const styles = ScaledSheet.create({
         fontFamily: 'NotoSans',
         width: '100%',
         marginTop: '2@msr'
+    },
+    buttonContainer: {
+        width: '100%',
+        position: 'absolute',
+        zIndex: 100,
+        bottom: 0,
+        paddingHorizontal: 24
     },
     button: {
         width: '100%',
@@ -125,6 +132,20 @@ const styles = ScaledSheet.create({
         borderRadius: 100,
         backgroundColor: 'rgba(225, 55, 55, 1)',
         marginLeft: '6@msr'
+    },
+    noListTitle: {
+        fontSize: '16@s',
+        color: '#141414',
+        fontFamily: 'NotoSansMedium',
+        textAlign: 'center',
+        textAlignVertical: 'center'
+    },
+    noListSubtitle: {
+        fontSize: '14@s',
+        color: '#141414',
+        fontFamily: 'NotoSans',
+        textAlign: 'center',
+        textAlignVertical: 'center'
     }
 });
 
